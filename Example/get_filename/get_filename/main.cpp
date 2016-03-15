@@ -11,11 +11,11 @@ int main()
 	cout << filename << endl << endl;
 
 	vector<string> vec_names;
-	LibGP::get_all_filenames(filename, vec_names);
+	LibGP::get_all_filenames(vec_names, filename);
 	for (int i = 0; i < vec_names.size(); i++)
 	{
 		cout << vec_names[i] << endl;
 	}
-
+	
 	return 0;
 }

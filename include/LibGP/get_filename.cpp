@@ -43,7 +43,6 @@ LIBGP_INLINE bool LibGP::get_filename(std::string& filename, bool open, LibGP::F
 		ofn.lpstrFilter = TEXT("Image Files(*.png)\0 *.png\0");
 		if (!default_name.empty())
 		{
-			default_name[default_name.size() - 4] = 0;
 			_tcscpy_s(strFile, CA2T(default_name.c_str()));
 		}
 		else{
