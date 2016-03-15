@@ -2,7 +2,7 @@
 #include <Windows.h>
 #include "get_filename.h"
 
-bool LibGP::get_filename(std::string& filename, bool open, LibGP::FileType filetype, std::string default_name)
+LIBGP_INLINE bool LibGP::get_filename(std::string& filename, bool open, LibGP::FileType filetype, std::string default_name)
 
 {
 	// file index
