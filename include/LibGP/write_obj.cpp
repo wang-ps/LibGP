@@ -1,7 +1,5 @@
 #include <fstream>
 #include <iostream>
-#include <vector>
-#include <sstream>
 #include "write_obj.h"
 
 
@@ -10,7 +8,7 @@ LIBGP_INLINE bool LibGP::write_obj(std::string filename, Eigen::MatrixXd& V, Eig
 	std::ofstream outfile(filename);
 	if (!outfile)
 	{
-		std::cerr << "Open OBJ file error!" << std::endl;
+		std::cout << "Open OBJ file error!" << std::endl;
 		return false;
 	}
 

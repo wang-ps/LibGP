@@ -10,7 +10,7 @@ LIBGP_INLINE bool LibGP::read_obj(std::string filename, Eigen::MatrixXd& V, Eige
 	std::ifstream infile(filename, std::ifstream::binary);
 	if (!infile)
 	{
-		std::cerr << "Open OBJ file error!" << std::endl;
+		std::cout << "Open OBJ file error!" << std::endl;
 		return false;
 	}
 
