@@ -5,7 +5,7 @@
 
 LIBGP_INLINE bool LibGP::write_obj(std::string filename, Eigen::MatrixXd& V, Eigen::MatrixXi& F)
 {
-	std::ofstream outfile(filename);
+	std::ofstream outfile(filename, std::ios::binary);
 	if (!outfile)
 	{
 		std::cout << "Open OBJ file error!" << std::endl;

@@ -51,8 +51,14 @@ LIBGP_INLINE bool LibGP::read_obj(std::string filename, Eigen::MatrixXd& V, Eige
 	#pragma omp parallel for
 	for (int i = 0; i < pVline.size(); i++)
 	{
-		std::istringstream instr(pVline[i]);
-		instr >> V(0, i) >> V(1, i) >> V(2, i);
+		char* p = strtok(pVline[i], " ");
+		for (int j = 0; j < 3; j++)
+		{
+			V(j, i) = atof(p);
+			p = strtok(nullptr, " ");
+		}
+		// std::istringstream instr(pVline[i]);
+		// instr >> V(0, i) >> V(1, i) >> V(2, i);
 	}
 
 	// load F
@@ -60,18 +66,25 @@ LIBGP_INLINE bool LibGP::read_obj(std::string filename, Eigen::MatrixXd& V, Eige
 	#pragma omp parallel for
 	for (int i = 0; i < pFline.size(); i++)
 	{
-		std::istringstream instr(pFline[i]);
-		char* found = strchr(pFline[i], '/');
+		char* p = strtok(pFline[i], " ");
 		for (int j = 0; j < 3; j++)
 		{
-			instr >> F(j, i);
-			F(j, i) -= 1;
-			std::string tmp;
-			if (found != nullptr)
-			{
-				instr >> tmp;
-			}
+			F(j, i) = atoi(p) - 1;
+			p = strtok(nullptr, " ");
 		}
+
+		// std::istringstream instr(pFline[i]);
+		// char* found = strchr(pFline[i], '/');
+		// for (int j = 0; j < 3; j++)
+		// {
+		// 	instr >> F(j, i);
+		// 	F(j, i) -= 1;
+		// 	std::string tmp;
+		// 	if (found != nullptr)
+		// 	{
+		// 		instr >> tmp;
+		// 	}
+		// }
 	}
 
 	// release
