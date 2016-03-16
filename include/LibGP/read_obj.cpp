@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <sstream>
+#include <omp.h>
 #include "read_obj.h"
 
 
@@ -25,52 +26,53 @@ LIBGP_INLINE bool LibGP::read_obj(std::string filename, Eigen::MatrixXd& V, Eige
 	buffer[len] = 0;
 	infile.close();
 
-	// V and F buffer
-	std::vector<double> vecV;
-	std::vector<int> vecF;
-
-	// parse the buffer
-	std::string line, keywrd;
-	std::istringstream instring(buffer);
-	while (!instring.eof())
+	// parse buffer data
+	std::vector<char*> pVline, pFline;
+	for (int i = 0; i < len; i++)
 	{
-		std::getline(instring, line);
-		std::istringstream linestream(line);
-		linestream >> keywrd;
-
-		if (keywrd == "v")
+		if (buffer[i] == '\n')
 		{
-			double x;
-			for (int i = 0; i < 3; i++)
-			{
-				linestream >> x;
-				vecV.push_back(x);
-			}
+			buffer[i] = 0;
 		}
-
-		if (keywrd == "f")
+		else if (buffer[i] == 'v' && buffer[i + 1] == ' ')
 		{
-			int v;
+			buffer[i] = 0;
+			pVline.push_back(buffer + i + 2);
+		}
+		else if (buffer[i] == 'f' && buffer[i + 1] == ' ')
+		{
+			buffer[i] = 0;
+			pFline.push_back(buffer + i + 2);
+		}
+	}
+	
+	// load V
+	V.resize(3, pVline.size());
+	#pragma omp parallel for
+	for (int i = 0; i < pVline.size(); i++)
+	{
+		std::istringstream instr(pVline[i]);
+		instr >> V(0, i) >> V(1, i) >> V(2, i);
+	}
+
+	// load F
+	F.resize(3, pFline.size());
+	#pragma omp parallel for
+	for (int i = 0; i < pFline.size(); i++)
+	{
+		std::istringstream instr(pFline[i]);
+		char* found = strchr(pFline[i], '/');
+		for (int j = 0; j < 3; j++)
+		{
+			instr >> F(j, i);
+			F(j, i) -= 1;
 			std::string tmp;
-			size_t found = line.find('/', 1);
-			for (int i = 0; i < 3; i++)
+			if (found != nullptr)
 			{
-				linestream >> v;
-				if (found != std::string::npos)
-				{
-					linestream >> tmp;
-				}
-				vecF.push_back(v - 1);
+				instr >> tmp;
 			}
 		}
 	}
-
-	// output
-	V.resize(3, vecV.size() / 3);
-	std::memcpy(V.data(), vecV.data(), vecV.size()*sizeof(double));
-
-	F.resize(3, vecF.size() / 3);
-	std::memcpy(F.data(), vecF.data(), vecF.size()*sizeof(int));
 
 	// release
 	delete[] buffer;
