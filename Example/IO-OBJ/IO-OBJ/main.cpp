@@ -17,9 +17,9 @@ int main()
 //	std::string filename = "D:\\Paper\\RollingGuidanceNormalFilter\\data\\Geometry Texture Removal\\Circular box\\circular_box.obj";
 // 	std::string filename1 = "C:\\Users\\v-pewan\\Desktop\\gargoyle.obj";
 // 
-// 	std::string filename2 = "D:\\Models\\armadillo.off";
+ 	std::string filename2 = "D:\\Models\\armadillo.off";
   	std::string filename3 = "C:\\Users\\v-pewan\\Desktop\\eight.obj";
- 	std::string filename4 = "C:\\Users\\v-pewan\\Desktop\\eight.off";
+ 	std::string filename4 = "C:\\Users\\v-pewan\\Desktop\\test.off";
 
 
 
@@ -48,6 +48,10 @@ int main()
 	t2 = clock();
 	std::cout << t2 - t1 << std::endl;
 
+	t1 = clock();
+	LibGP::write_off(filename2, V, F);
+	t2 = clock();
+	std::cout << t2 - t1 << std::endl;
 
 // 	std::cout << V << std::endl << std::endl;
 // 	std::cout << F << std::endl << std::endl;
