@@ -22,7 +22,7 @@ LIBGP_INLINE void LibGP::compute_face_center(
 // Explicit template specialization
 template<>
 void LibGP::compute_face_center<Eigen::MatrixXd, Eigen::MatrixXd, Eigen::MatrixXi>(
-		  Eigen::MatrixBase<Eigen::MatrixXd>&
+		  Eigen::MatrixBase<Eigen::MatrixXd>&,
 	const Eigen::MatrixBase<Eigen::MatrixXd>&,
 	const Eigen::MatrixBase<Eigen::MatrixXi>&);
 #endif

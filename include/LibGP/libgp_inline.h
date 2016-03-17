@@ -5,3 +5,5 @@
 #else
 #  define LIBGP_INLINE
 #endif
+
+const double EPS = 1.0e-15;
