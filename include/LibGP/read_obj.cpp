@@ -28,22 +28,19 @@ LIBGP_INLINE bool LibGP::read_obj(std::string filename, Eigen::MatrixXd& V, Eige
 
 	// parse buffer data
 	std::vector<char*> pVline, pFline;
-	for (int i = 0; i < len; i++)
+	char* pch = strtok(buffer, "\n");
+	while (pch != nullptr)
 	{
-		if (buffer[i] == '\n')
+		if (pch[0] == 'v' && pch[1] == ' ')
 		{
-			buffer[i] = 0;
+			pVline.push_back(pch + 2);
 		}
-		else if (buffer[i] == 'v' && buffer[i + 1] == ' ')
+		else if (pch[0] == 'f' && pch[1] == ' ')
 		{
-			buffer[i] = 0;
-			pVline.push_back(buffer + i + 2);
+			pFline.push_back(pch + 2);
 		}
-		else if (buffer[i] == 'f' && buffer[i + 1] == ' ')
-		{
-			buffer[i] = 0;
-			pFline.push_back(buffer + i + 2);
-		}
+
+		pch = strtok(nullptr, "\n");
 	}
 	
 	// load V

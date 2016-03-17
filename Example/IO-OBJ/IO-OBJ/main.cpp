@@ -1,9 +1,10 @@
 #include <iostream>
-#include <LibGP\read_obj.h>
-#include <LibGP\write_obj.h>
-#include <LibGP\read_off.h>
-#include <LibGP\write_off.h>
 #include <ctime>
+
+// LibGP
+#include <LibGP\read_mesh.h>
+#include <LibGP\write_mesh.h>
+
 // openmesh
 #include <OpenMesh/Core/IO/MeshIO.hh>
 #include <OpenMesh/Core/Mesh/TriMesh_ArrayKernelT.hh>
@@ -17,12 +18,10 @@ int main()
 //	std::string filename = "D:\\Paper\\RollingGuidanceNormalFilter\\data\\Geometry Texture Removal\\Circular box\\circular_box.obj";
 // 	std::string filename1 = "C:\\Users\\v-pewan\\Desktop\\gargoyle.obj";
 // 
- 	std::string filename2 = "D:\\Models\\armadillo.off";
-  	std::string filename3 = "C:\\Users\\v-pewan\\Desktop\\eight.obj";
- 	std::string filename4 = "C:\\Users\\v-pewan\\Desktop\\test.off";
-
-
-
+ 	std::string filename2 = "C:\\Users\\v-pewan\\Desktop\\circular_box_opt_mesh.obj";
+  	std::string filename3 = "C:\\Users\\v-pewan\\Desktop\\circular_box_opt.obj";
+ 	std::string filename4 = "C:\\Users\\v-pewan\\Desktop\\circular_box.obj";
+	
 	Eigen::MatrixXd V;
 	Eigen::MatrixXi F;
 
@@ -33,23 +32,24 @@ int main()
 // 	std::cout << t2 - t1 << std::endl;
 
 	t1 = clock();
-	LibGP::read_off(filename4, V, F);
+	LibGP::read_mesh(filename4, V, F);
 	t2 = clock();
 	std::cout << t2 - t1 << std::endl;
 
-// 	Mesh mesh;
-// 	t1 = clock();
-// 	OpenMesh::IO::read_mesh(mesh, filename);
-// 	t2 = clock();
-// 	std::cout << t2 - t1 << std::endl;
-
+	Mesh mesh;
 	t1 = clock();
-	LibGP::write_obj(filename3, V, F);
+	OpenMesh::IO::read_mesh(mesh, filename4);
 	t2 = clock();
 	std::cout << t2 - t1 << std::endl;
 
 	t1 = clock();
-	LibGP::write_off(filename2, V, F);
+	LibGP::write_mesh(filename2, V, F);
+	t2 = clock();
+	std::cout << t2 - t1 << std::endl;
+
+
+	t1 = clock();
+	OpenMesh::IO::write_mesh(mesh, filename3);
 	t2 = clock();
 	std::cout << t2 - t1 << std::endl;
 

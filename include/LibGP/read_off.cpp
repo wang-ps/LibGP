@@ -41,11 +41,11 @@ LIBGP_INLINE bool LibGP::read_off(std::string filename, Eigen::MatrixXd& V, Eige
 	// parse buffer data
 	std::vector<char*> pV;
 	pV.reserve(3 * nv);
-	char* pch = strtok(buffer, " \r\n");
+	char* pch = strtok(buffer, " \n");
 	pV.push_back(pch);
 	for (int i = 1; i < 3 * nv; i++)
 	{
-		pch = strtok(nullptr, " \r\n");
+		pch = strtok(nullptr, " \n");
 		pV.push_back(pch);
 	}
 	std::vector<char*> pF;
@@ -53,10 +53,10 @@ LIBGP_INLINE bool LibGP::read_off(std::string filename, Eigen::MatrixXd& V, Eige
 	for (int i = 0; i < nf; i++)
 	{
 		// eat the first data
-		pch = strtok(nullptr, " \r\n");
+		pch = strtok(nullptr, " \n");
 		for (int j = 0; j < 3; j++)
 		{
-			pch = strtok(nullptr, " \r\n");
+			pch = strtok(nullptr, " \n");
 			pF.push_back(pch);
 		}
 	}
