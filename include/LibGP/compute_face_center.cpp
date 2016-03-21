@@ -7,15 +7,15 @@ LIBGP_INLINE void LibGP::compute_face_center(
 	const Eigen::MatrixBase<DerivedF>& F)
 {
 	FC = Eigen::MatrixBase<DerivedV>::Zero(F.rows(), F.cols());
+	#pragma omp parallel for
 	for (size_t i = 0; i < F.cols(); i++)
 	{
 		for (size_t j = 0; j < 3; j++)
 		{
 			FC.col(i) += V.col(F(j, i));
 		}
+		FC.col(i) /= 3.0;
 	}
-
-	FC /= 3.0;	
 }
 
 #ifdef LIBPG_STATIC_LIBRARY
