@@ -1,4 +1,5 @@
 #include "compute_avg_edge_length.h"
+#include <omp.h>
 
 template <typename DerivedV, typename DerivedF>
 LIBGP_INLINE double LibGP::compute_avg_edge_length(
@@ -6,17 +7,18 @@ LIBGP_INLINE double LibGP::compute_avg_edge_length(
 	const Eigen::MatrixBase<DerivedF>& F)
 {
 	double avg_len = 0;
-	size_t n = 0;
-	for (size_t j = 0; j < F.cols(); j++)
+#pragma omp parallel for reduction(+:avg_len)
+	for (int j = 0; j < F.cols(); j++)
 	{
-		for (size_t i = 0; i < F.rows(); i++)
+		double d = 0;
+		for (int i = 0; i < F.rows(); i++)
 		{
-			avg_len += (V.col(F(i, j)) - V.col(F((i + 1) % F.rows(), j))).norm();
-			n++;
+			d += (V.col(F(i, j)) - V.col(F((i + 1) % F.rows(), j))).norm();
 		}
+		avg_len += d;
 	}
 
-	return avg_len / (double)n;
+	return avg_len / (double)(3*F.cols());
 }
 
 #ifdef LIBPG_STATIC_LIBRARY
