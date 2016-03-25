@@ -18,7 +18,7 @@ namespace LibGP
 		const Eigen::MatrixXi& F,
 		const Eigen::MatrixXd& N1,
 		const std::vector<std::vector<int>>& vf_ring,
-		int it_num = 20);
+		int it_num = 30);
 }
 
 #ifndef LIBPG_STATIC_LIBRARY

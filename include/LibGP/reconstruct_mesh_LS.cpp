@@ -5,7 +5,7 @@
 
 LIBGP_INLINE void LibGP::reconstruct_mesh_LS(
 	Eigen::MatrixXd& V1, const Eigen::MatrixXd& V,
-	const Eigen::MatrixXi& F, const Eigen::MatrixXd& N1, int it_num /* = 20 */)
+	const Eigen::MatrixXi& F, const Eigen::MatrixXd& N1, int it_num /* = 30 */)
 {
 	// compute vertex_face_ring
 	std::vector<std::vector<int>> vf_ring;
@@ -18,25 +18,28 @@ LIBGP_INLINE void LibGP::reconstruct_mesh_LS(
 LIBGP_INLINE void LibGP::reconstruct_mesh_LS(
 	Eigen::MatrixXd& V1, const Eigen::MatrixXd& V,
 	const Eigen::MatrixXi& F, const Eigen::MatrixXd& N1,
-	const std::vector<std::vector<int>>& vf_ring, int it_num /* = 20 */)
+	const std::vector<std::vector<int>>& vf_ring, int it_num /* = 30 */)
 {
+	// init
+	V1 = V;
+
 	// iteration
-	Eigen::MatrixXd Fc, V1 = V;
 	for (int it = 0; it < it_num; it++)
 	{
 		// compute face center
-		LibGP::compute_face_center(Fc, V, F);
+		Eigen::MatrixXd Fc;
+		LibGP::compute_face_center(Fc, V1, F);
 
 		// update vertex
 		#pragma omp parallel for
 		for (int i = 0; i < vf_ring.size(); i++)
 		{
 			Eigen::Vector3d vt(0, 0, 0);
-			for (int& fi : vf_ring[i])
+			for (const int& fi : vf_ring[i])
 			{
-				vt += N.col(fi) * (N.col(fi).dot(Fc.col(fi) - V.col(i)));
+				vt += N1.col(fi) * (N1.col(fi).dot(Fc.col(fi) - V1.col(i)));
 			}
-			V.col(i) += vt / (double)vf_ring[i].size();
+			V1.col(i) += vt / (double)vf_ring[i].size();
 		}
 	}
 }
