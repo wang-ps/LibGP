@@ -9,7 +9,7 @@ LIBGP_INLINE void LibGP::adj_to_list(
 	{
 		for (Eigen::SparseMatrix<double>::InnerIterator it(A, k); it; ++it)
 		{
-			vec[k].push_back(it.row());
+			if (it.row() != it.col()) vec[k].push_back(it.row());
 		}
 	}
 }
