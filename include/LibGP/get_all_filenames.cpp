@@ -1,5 +1,4 @@
 #include "get_all_filenames.h"
-#include <io.h>
 
 LIBGP_INLINE void LibGP::get_all_filenames(std::vector<std::string>& _all_filenames, std::string _filename)
 {

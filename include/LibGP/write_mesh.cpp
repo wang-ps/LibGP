@@ -1,5 +1,6 @@
-#include "read_mesh.h"
-
+#include "write_mesh.h"
+#include "write_obj.h"
+#include "write_off.h"
 
 LIBGP_INLINE bool LibGP::write_mesh(std::string filename, Eigen::MatrixXd& V, Eigen::MatrixXi& F)
 {

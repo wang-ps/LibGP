@@ -2,7 +2,6 @@
 #include "compute_vtx_face_ring.h"
 #include "list_to_adj.h"
 #include "adj_to_list.h"
-#include <Eigen/Sparse>
 
 LIBGP_INLINE void LibGP::compute_face_face_ringv(
 	std::vector<std::vector<int>>& vec,
@@ -14,7 +13,7 @@ LIBGP_INLINE void LibGP::compute_face_face_ringv(
 	LibGP::compute_vtx_face_ring(vf, F);
 
 	SMatrixd A;
-	LibGP::list_to_adj(A, vec);
+	LibGP::list_to_adj(A, vf);
 
 	SMatrixd B = SMatrixd(A.tranpose()) * A;
 

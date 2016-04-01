@@ -1,5 +1,4 @@
 #include "compute_adj_matrix.h"
-#include <vector>
 
 LIBGP_INLINE void LibGP::compute_adj_matrix(Eigen::SparseMatrix<double>& A, const Eigen::MatrixXi& F)
 {

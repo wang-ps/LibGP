@@ -31,13 +31,14 @@ LIBGP_INLINE void LibGP::reconstruct_mesh_LS(
 		LibGP::compute_face_center(Fc, V1, F);
 
 		// update vertex
+		Eigen::MatrixXd V2 = V1;
 		#pragma omp parallel for
 		for (int i = 0; i < vf_ring.size(); i++)
 		{
 			Eigen::Vector3d vt(0, 0, 0);
 			for (const int& fi : vf_ring[i])
 			{
-				vt += N1.col(fi) * (N1.col(fi).dot(Fc.col(fi) - V1.col(i)));
+				vt += N1.col(fi) * (N1.col(fi).dot(Fc.col(fi) - V2.col(i)));
 			}
 			V1.col(i) += vt / (double)vf_ring[i].size();
 		}

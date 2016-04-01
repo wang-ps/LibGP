@@ -1,7 +1,5 @@
 #pragma once
-#include "libgp_inline.h"
-#include "read_obj.h"
-#include "read_off.h"
+#include "libgp_global.h"
 
 namespace LibGP
 {

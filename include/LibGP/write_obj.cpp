@@ -1,6 +1,3 @@
-#include <fstream>
-#include <iostream>
-#include <omp.h>
 #include "write_obj.h"
 
 

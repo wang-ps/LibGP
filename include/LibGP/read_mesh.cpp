@@ -1,4 +1,6 @@
 #include "read_mesh.h"
+#include "read_obj.h"
+#include "read_off.h"
 
 
 LIBGP_INLINE bool LibGP::read_mesh(std::string filename, Eigen::MatrixXd& V, Eigen::MatrixXi& F)

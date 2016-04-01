@@ -1,7 +1,6 @@
 #include "compute_normal.h"
 #include "compute_face_normal.h"
 #include "normalize_colwise.h"
-#include <omp.h>
 
 template <typename DerivedV, typename DerivedF>
 LIBGP_INLINE void LibGP::compute_normal(

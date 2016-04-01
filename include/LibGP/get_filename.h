@@ -1,6 +1,5 @@
 #pragma once
-#include "libgp_inline.h"
-#include <string>
+#include "libgp_global.h"
 
 namespace LibGP
 {

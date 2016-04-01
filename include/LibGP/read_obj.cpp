@@ -1,8 +1,3 @@
-#include <fstream>
-#include <iostream>
-#include <vector>
-#include <sstream>
-#include <omp.h>
 #include "read_obj.h"
 
 

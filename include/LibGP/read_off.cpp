@@ -1,5 +1,4 @@
 #include "read_off.h"
-#include <fstream>
 
 LIBGP_INLINE bool LibGP::read_off(std::string filename, Eigen::MatrixXd& V, Eigen::MatrixXi& F)
 {

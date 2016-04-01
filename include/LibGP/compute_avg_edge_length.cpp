@@ -1,5 +1,4 @@
 #include "compute_avg_edge_length.h"
-#include <omp.h>
 
 template <typename DerivedV, typename DerivedF>
 LIBGP_INLINE double LibGP::compute_avg_edge_length(

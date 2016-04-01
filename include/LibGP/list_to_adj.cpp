@@ -1,5 +1,4 @@
 #include "list_to_adj.h"
-#include <Eigen/Sparse>
 
 LIBGP_INLINE void LibGP::list_to_adj(
 	Eigen::SparseMatrix<double>& A,
