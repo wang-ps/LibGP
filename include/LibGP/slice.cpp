@@ -19,7 +19,7 @@ LIBGP_INLINE void LibGP::slice(Eigen::MatrixXd& B, LibGP::VectorXb& flag, const 
 
 LIBGP_INLINE void LibGP::slice_into(Eigen::MatrixXd& A, LibGP::VectorXb& flag, const Eigen::MatrixXd& B)
 {
-	assert(A.cols() != flag.size());
+	assert(A.cols() == flag.size());
 
 	for (int i = 0, j = 0; i < flag.size(); i++)
 	{
@@ -50,7 +50,7 @@ LIBGP_INLINE void LibGP::slice_into(Eigen::MatrixXd& A, std::vector<int>& idx, c
 
 LIBGP_INLINE void LibGP::slice_into(Eigen::VectorXi& A, LibGP::VectorXb& flag, const int b)
 {
-	assert(A.rows == flag.size());
+	assert(A.rows() == flag.size());
 
 	for (int i = 0; i < flag.size(); i++)
 	{
