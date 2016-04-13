@@ -14,14 +14,44 @@
 #include <Eigen/Dense>
 #include <Eigen/Sparse>
 
+/* inline */
 #ifndef LIBPG_STATIC_LIBRARY
 #  define LIBGP_INLINE inline
 #else
 #  define LIBGP_INLINE
 #endif
 
-namespace LibGP{
-const double EPS = 1.0e-10;
+using std::cout;
+using std::cerr;
+using std::endl;
 
-typedef Eigen::Matrix<bool, Eigen::Dynamic, 1> VectorXb;
+/* Application precision -- can be set to single or Float precision */
+#if defined(SINGLE_PRECISION)
+typedef float Float;
+#else
+typedef double Float;
+#endif
+
+namespace LibGP{
+
+const Float EPS = 1.0e-10;
+
+/* Useful Eigen typedefs based on the current precision */
+typedef Eigen::Matrix<int, 2, 1>  								Vector2i;
+typedef Eigen::Matrix<int, 3, 1>  								Vector3i;
+typedef Eigen::Matrix<int, 4, 1>								Vector4i;
+typedef Eigen::Matrix<Float, 2, 1>								Vector2f;
+typedef Eigen::Matrix<Float, 3, 1>								Vector3f;
+typedef Eigen::Matrix<Float, 4, 1>								Vector4f;
+typedef Eigen::Matrix<Float, 2, 2>								Matrix2f;
+typedef Eigen::Matrix<Float, 3, 3>								Matrix3f;
+typedef Eigen::Matrix<Float, 4, 4>								Matrix4f;
+typedef Eigen::Matrix<int, Eigen::Dynamic, 1>					VectorXi;
+typedef Eigen::Matrix<bool, Eigen::Dynamic, 1>  				VectorXb;
+typedef Eigen::Matrix<Float, Eigen::Dynamic, 1> 				VectorXf;
+typedef Eigen::Matrix<int, Eigen::Dynamic, Eigen::Dynamic>		MatrixXi;
+typedef Eigen::Matrix<Float, Eigen::Dynamic, Eigen::Dynamic>	MatrixXf;
+typedef Eigen::SparseMatrix<Float>								SMatrixf;
+typedef Eigen::Triplet<Float>									Tripletf;
+
 }

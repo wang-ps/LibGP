@@ -1,15 +1,18 @@
 #include "adj_to_list.h"
 
-LIBGP_INLINE void LibGP::adj_to_list(
-	std::vector<std::vector<int>>& vec, 
-	const Eigen::SparseMatrix<double>& A)
+namespace LibGP
 {
-	vec.resize(A.cols());
-	for (int k = 0; k < A.outerSize(); ++k)
+	LIBGP_INLINE void LibGP::adj_to_list(
+		std::vector<std::vector<int>>& vec,
+		const SMatrixf& A)
 	{
-		for (Eigen::SparseMatrix<double>::InnerIterator it(A, k); it; ++it)
+		vec.resize(A.cols());
+		for (int k = 0; k < A.outerSize(); ++k)
 		{
-			if (it.row() != it.col()) vec[k].push_back(it.row());
+			for (SMatrixf::InnerIterator it(A, k); it; ++it)
+			{
+				if (it.row() != it.col()) vec[k].push_back(it.row());
+			}
 		}
 	}
 }

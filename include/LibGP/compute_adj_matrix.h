@@ -4,8 +4,7 @@
 namespace LibGP
 {
 	LIBGP_INLINE void compute_adj_matrix(
-		Eigen::SparseMatrix<double>& A,
-		const Eigen::MatrixXi& F);
+		SMatrixf& A, const MatrixXi& F);
 }
 
 #ifndef LIBPG_STATIC_LIBRARY

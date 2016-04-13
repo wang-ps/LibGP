@@ -5,7 +5,7 @@ namespace LibGP
 {
 	LIBGP_INLINE void adj_to_list(
 		std::vector<std::vector<int>>& vec,
-		const Eigen::SparseMatrix<double>& A);
+		const SMatrixf& A);
 }
 
 #ifndef LIBPG_STATIC_LIBRARY

@@ -5,7 +5,7 @@ namespace LibGP
 {
 	LIBGP_INLINE void compute_face_face_ringv(
 		std::vector<std::vector<int>>& vec,
-		const Eigen::MatrixXi& F);
+		const MatrixXi& F);
 }
 
 #ifndef LIBPG_STATIC_LIBRARY

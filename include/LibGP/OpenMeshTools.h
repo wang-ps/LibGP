@@ -3,9 +3,9 @@
 #include <vector>
 
 
-inline double calc_avg_edge_length(Mesh& mesh)
+inline Float calc_avg_edge_length(Mesh& mesh)
 {
-	double le = 0;
+	Float le = 0;
 	for (auto eh : mesh.edges())
 	{
 		Mesh::HalfedgeHandle heh = mesh.halfedge_handle(eh, 1);
@@ -13,7 +13,7 @@ inline double calc_avg_edge_length(Mesh& mesh)
 		Mesh::Point pt2 = mesh.point(mesh.to_vertex_handle(heh));
 		le += (pt1 - pt2).norm();
 	}
-	le /= (double)mesh.n_edges();
+	le /= (Float)mesh.n_edges();
 	return le;
 }
 
@@ -50,7 +50,7 @@ inline void calc_face_normal(Mesh& mesh, Eigen::MatrixXd& N, Eigen::VectorXd& f_
 		}
 		Mesh::Point n = cross(p[1] - p[0], p[2] - p[0]);
 
-		double d = n.norm();
+		Float d = n.norm();
 		if (d > ESP) n /= d;
 
 		f_areas[fi] = d*0.5;
@@ -109,7 +109,7 @@ inline void reconstruct_mesh(Mesh& mesh, Eigen::MatrixXd& N, Mesh& mesh1, int it
 #pragma omp parallel for
 		for (int i = 0; i < mesh.n_vertices(); i++)
 		{
-			double degree = 0.0;
+			Float degree = 0.0;
 			Eigen::Vector3d vt(0, 0, 0);
 			for (auto vf : mesh.vf_range(mesh.vertex_handle(i)))
 			{
