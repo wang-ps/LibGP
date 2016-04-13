@@ -36,6 +36,9 @@ namespace LibGP{
 
 const Float EPS = 1.0e-10;
 
+/*std vector */
+typedef std::vector<std::vector<int>>							vecveci;
+
 /* Useful Eigen typedefs based on the current precision */
 typedef Eigen::Matrix<int, 2, 1>  								Vector2i;
 typedef Eigen::Matrix<int, 3, 1>  								Vector3i;

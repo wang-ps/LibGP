@@ -2,27 +2,29 @@
 #include "write_obj.h"
 #include "write_off.h"
 
-LIBGP_INLINE bool LibGP::write_mesh(std::string filename, Eigen::MatrixXd& V, Eigen::MatrixXi& F)
-{
-	size_t found = filename.rfind('.');
-	if (found != std::string::npos)
+namespace LibGP{
+	LIBGP_INLINE bool write_mesh(std::string filename, const MatrixXf& V, const MatrixXi& F)
 	{
-		std::string suffix(filename, found + 1);
-		if (suffix == "obj")
+		size_t found = filename.rfind('.');
+		if (found != std::string::npos)
 		{
-			LibGP::write_obj(filename, V, F);
-		}
-		else if (suffix == "off")
-		{
-			LibGP::write_off(filename, V, F);
-		}
-		else
-		{
-			std::cout << "Error : Unsupported file formate!" << std::endl;
-			return false;
-		}
+			std::string suffix(filename, found + 1);
+			if (suffix == "obj")
+			{
+				write_obj(filename, V, F);
+			}
+			else if (suffix == "off")
+			{
+				write_off(filename, V, F);
+			}
+			else
+			{
+				std::cout << "Error : Unsupported file formate!" << std::endl;
+				return false;
+			}
 
-		return true;
+			return true;
+		}
+		return false;
 	}
-	return false;
 }

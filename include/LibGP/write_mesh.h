@@ -4,7 +4,7 @@
 namespace LibGP
 {
 	LIBGP_INLINE bool write_mesh(std::string filename,
-		Eigen::MatrixXd& V, Eigen::MatrixXi& F);
+		const MatrixXf& V, const MatrixXi& F);
 }
 
 #ifndef LIBPG_STATIC_LIBRARY

@@ -4,7 +4,7 @@
 namespace LibGP
 {
 	LIBGP_INLINE bool read_obj( std::string filename, 
-		Eigen::MatrixXd& V, Eigen::MatrixXi& F);
+		MatrixXf& V, MatrixXi& F);
 }
 
 #ifndef LIBPG_STATIC_LIBRARY

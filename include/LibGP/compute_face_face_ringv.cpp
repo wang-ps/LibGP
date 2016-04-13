@@ -6,10 +6,9 @@
 namespace LibGP
 {
 	LIBGP_INLINE void compute_face_face_ringv(
-		std::vector<std::vector<int>>& vec,
-		const MatrixXi& F)
+		vecveci& vec, const MatrixXi& F)
 	{
-		std::vector<std::vector<int>> vf;
+		vecveci vf;
 		compute_vtx_face_ring(vf, F);
 
 		SMatrixf A;
