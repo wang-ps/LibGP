@@ -24,7 +24,7 @@ LIBGP_INLINE void LibGP::compute_normal(
 }
 
 template <typename DerivedV, typename DerivedF>
-LIBGP_INLINE void compute_normal(
+LIBGP_INLINE void LibGP::compute_normal(
 	Eigen::MatrixXd& Nv, Eigen::MatrixXd& Nf,
 	const Eigen::MatrixBase<DerivedV>& V,
 	const Eigen::MatrixBase<DerivedF>& F)

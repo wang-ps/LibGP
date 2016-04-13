@@ -8,7 +8,7 @@ LIBGP_INLINE void  LibGP::normalize_colwise(Eigen::MatrixBase<Derived>& A)
 	for (int j = 0; j < n; j++)
 	{
 		double d = A.col(j).norm();
-		if (d < EPS) d = ESP;
+		if (d < LibGP::EPS) d = LibGP::EPS;
 		A.col(j) /= d;
 	}
 }

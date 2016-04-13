@@ -24,14 +24,14 @@ LIBGP_INLINE void LibGP::reconstruct_mesh_LS(
 	V1 = V;
 
 	// iteration
+	Eigen::MatrixXd Fc, V2;
 	for (int it = 0; it < it_num; it++)
 	{
 		// compute face center
-		Eigen::MatrixXd Fc;
 		LibGP::compute_face_center(Fc, V1, F);
 
 		// update vertex
-		Eigen::MatrixXd V2 = V1;
+		V2 = V1;
 		#pragma omp parallel for
 		for (int i = 0; i < vf_ring.size(); i++)
 		{
