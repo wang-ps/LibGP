@@ -2,28 +2,29 @@
 #include "read_obj.h"
 #include "read_off.h"
 
-
-LIBGP_INLINE bool LibGP::read_mesh(std::string filename, Eigen::MatrixXd& V, Eigen::MatrixXi& F)
+namespace LibGP
 {
-	size_t found = filename.rfind('.');
-	if(found != std::string::npos)
+	LIBGP_INLINE bool read_mesh(std::string filename, MatrixXf& V, MatrixXi& F)
 	{
-		std::string suffix(filename, found + 1);
-		if (suffix == "obj")
+		size_t found = filename.rfind('.');
+		if (found != std::string::npos)
 		{
-			LibGP::read_obj(filename, V, F);
+			std::string suffix(filename, found + 1);
+			if (suffix == "obj")
+			{
+				read_obj(filename, V, F);
+			}
+			else if (suffix == "off")
+			{
+				read_off(filename, V, F);
+			}
+			else
+			{
+				cout << "Error : Unsupported file formate!" <<endl;
+				return false;
+			}
+			return true;
 		}
-		else if (suffix == "off")
-		{
-			LibGP::read_off(filename, V, F);
-		}
-		else
-		{
-			std::cout << "Error : Unsupported file formate!" << std::endl;
-			return false;
-		}
-
-		return true;
+		return false;
 	}
-	return false;
 }

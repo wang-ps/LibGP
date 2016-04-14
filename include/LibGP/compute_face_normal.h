@@ -5,13 +5,13 @@ namespace LibGP
 {
 	template <typename DerivedV, typename DerivedF>
 	LIBGP_INLINE void compute_face_normal(
-		Eigen::MatrixXd& Nf,
+		MatrixXf& Nf,
 		const Eigen::MatrixBase<DerivedV>& V,
 		const Eigen::MatrixBase<DerivedF>& F);
 
 	template <typename DerivedV, typename DerivedF>
 	LIBGP_INLINE void compute_face_normal(
-		Eigen::MatrixXd& Nf, Eigen::VectorXd& Farea,
+		MatrixXf& Nf, VectorXf& f_area,
 		const Eigen::MatrixBase<DerivedV>& V,
 		const Eigen::MatrixBase<DerivedF>& F);
 }
