@@ -2,7 +2,7 @@
 
 namespace LibGP
 {
-	LIBGP_INLINE void list_to_adj(SMatrixf& A, const std::vector<std::vector<int>>& vec)
+	LIBGP_INLINE void list_to_adj(SMatrixf& A, const vecveci& vec)
 	{
 		int jmax = 0;
 		std::vector<Tripletf> coeff;

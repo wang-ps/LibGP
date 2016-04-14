@@ -4,18 +4,18 @@
 namespace LibGP
 {
 	LIBGP_INLINE void reconstruct_mesh_LS(
-		Eigen::MatrixXd& V1,
-		const Eigen::MatrixXd& V,
-		const Eigen::MatrixXi& F,
-		const Eigen::MatrixXd& N1,
+		MatrixXf& V1,
+		const MatrixXf& V,
+		const MatrixXi& F,
+		const MatrixXf& N1,
 		int it_num = 20);
 
 	LIBGP_INLINE void reconstruct_mesh_LS(
-		Eigen::MatrixXd& V1,
-		const Eigen::MatrixXd& V,
-		const Eigen::MatrixXi& F,
-		const Eigen::MatrixXd& N1,
-		const std::vector<std::vector<int>>& vf_ring,
+		MatrixXf& V1,
+		const MatrixXf& V,
+		const MatrixXi& F,
+		const MatrixXf& N1,
+		const vecveci& vf_ring,
 		int it_num = 30);
 }
 

@@ -4,8 +4,7 @@
 namespace LibGP
 {
 	LIBGP_INLINE void list_to_adj(
-		SMatrixf& A,
-		const std::vector<std::vector<int>>& vec);
+		SMatrixf& A, const vecveci& vec);
 }
 
 #ifndef LIBPG_STATIC_LIBRARY

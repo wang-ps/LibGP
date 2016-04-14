@@ -4,8 +4,7 @@
 namespace LibGP
 {
 	LIBGP_INLINE void compute_vtx_ring(
-		std::vector<std::vector<int>>& vec,
-		const Eigen::MatrixXi& F);
+		vecveci& vec, const MatrixXi& F);
 }
 
 #ifndef LIBPG_STATIC_LIBRARY

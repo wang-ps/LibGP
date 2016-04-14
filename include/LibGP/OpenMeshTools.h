@@ -17,7 +17,7 @@ inline Float calc_avg_edge_length(Mesh& mesh)
 	return le;
 }
 
-inline void calc_face_center(Mesh& mesh, Eigen::MatrixXd& f_center)
+inline void calc_face_center(Mesh& mesh, MatrixXf& f_center)
 {
 	f_center.resize(3, mesh.n_faces());
 	for (auto fh : mesh.faces())
@@ -35,7 +35,7 @@ inline void calc_face_center(Mesh& mesh, Eigen::MatrixXd& f_center)
 	}
 }
 
-inline void calc_face_normal(Mesh& mesh, Eigen::MatrixXd& N, Eigen::VectorXd& f_areas)
+inline void calc_face_normal(Mesh& mesh, MatrixXf& N, VectorXf& f_areas)
 {
 	N.resize(3, mesh.n_faces());
 	f_areas.resize(mesh.n_faces());
@@ -61,16 +61,16 @@ inline void calc_face_normal(Mesh& mesh, Eigen::MatrixXd& N, Eigen::VectorXd& f_
 	}
 }
 
-inline void calc_face_normal(Mesh& mesh, Eigen::MatrixXd& N)
+inline void calc_face_normal(Mesh& mesh, MatrixXf& N)
 {
-	Eigen::VectorXd f_areas;
+	VectorXf f_areas;
 	calc_face_normal(mesh, N, f_areas);
 }
 
-inline void reconstruct_mesh(Mesh& mesh, Eigen::MatrixXd& N, Mesh& mesh1, int it_num)
+inline void reconstruct_mesh(Mesh& mesh, MatrixXf& N, Mesh& mesh1, int it_num)
 {
 	// get V
-	Eigen::MatrixXd V(3, mesh.n_vertices());
+	MatrixXf V(3, mesh.n_vertices());
 	for (auto vh : mesh.vertices())
 	{
 		Mesh::Point &pt = mesh.point(vh);
@@ -81,7 +81,7 @@ inline void reconstruct_mesh(Mesh& mesh, Eigen::MatrixXd& N, Mesh& mesh1, int it
 	}
 
 	// get F
-	Eigen::MatrixXi F(3, mesh.n_faces());
+	MatrixXi F(3, mesh.n_faces());
 	for (auto fh : mesh.faces())
 	{
 		int i = 0;
@@ -94,7 +94,7 @@ inline void reconstruct_mesh(Mesh& mesh, Eigen::MatrixXd& N, Mesh& mesh1, int it
 	for (int it = 0; it < it_num; it++)
 	{
 		// calc face centers
-		Eigen::MatrixXd Fc = Eigen::MatrixXd::Zero(3, mesh.n_faces());
+		MatrixXf Fc = MatrixXf::Zero(3, mesh.n_faces());
 #pragma omp parallel for
 		for (int i = 0; i < mesh.n_faces(); i++)
 		{

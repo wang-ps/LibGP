@@ -37,18 +37,17 @@ namespace LibGP
 		VectorXf f_areas;
 		compute_face_normal(Nf, f_areas, V, F);
 	}
-}
-
 
 #ifdef LIBPG_STATIC_LIBRARY
-// Explicit template specialization
-template<>
-void LibGP::compute_face_normal<Eigen::MatrixXd, Eigen::MatrixXi>(
-	Eigen::MatrixXd&,
-	const Eigen::MatrixBase<Eigen::MatrixXd>&,
-	const Eigen::MatrixBase<Eigen::MatrixXi>&);
-void LibGP::compute_face_normal<Eigen::MatrixXd, Eigen::MatrixXi>(
-	Eigen::MatrixXd&, Eigen::VectorXd& F_areas,
-	const Eigen::MatrixBase<Eigen::MatrixXd>&,
-	const Eigen::MatrixBase<Eigen::MatrixXi>&);
+	// Explicit template specialization
+	template<>
+	void compute_face_normal<MatrixXf, MatrixXi>(
+		MatrixXf&,
+		const Eigen::MatrixBase<MatrixXf>&,
+		const Eigen::MatrixBase<MatrixXi>&);
+	void compute_face_normal<MatrixXf, MatrixXi>(
+		MatrixXf&, VectorXf& F_areas,
+		const Eigen::MatrixBase<MatrixXf>&,
+		const Eigen::MatrixBase<MatrixXi>&);
 #endif
+}

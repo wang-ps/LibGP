@@ -1,67 +1,70 @@
 #include "slice.h"
 
-LIBGP_INLINE void LibGP::slice(Eigen::MatrixXd& B, LibGP::VectorXb& flag, const Eigen::MatrixXd& A)
+namespace LibGP
 {
-	assert(A.cols() == flag.size());
-
-	int n = 0;
-	for (int i = 0; i < flag.size(); n += flag[i++]);
-
-	B.resize(A.rows(), n);
-	for (int i = 0, j = 0; i < flag.rows(); i++)
+	LIBGP_INLINE void slice(MatrixXf& B, VectorXb& flag, const MatrixXf& A)
 	{
-		if (flag[i])
+		assert(A.cols() == flag.size());
+
+		int n = 0;
+		for (int i = 0; i < flag.size(); n += flag[i++]);
+
+		B.resize(A.rows(), n);
+		for (int i = 0, j = 0; i < flag.rows(); i++)
 		{
-			B.col(j++) = A.col(i);
+			if (flag[i])
+			{
+				B.col(j++) = A.col(i);
+			}
 		}
 	}
-}
 
-LIBGP_INLINE void LibGP::slice_into(Eigen::MatrixXd& A, LibGP::VectorXb& flag, const Eigen::MatrixXd& B)
-{
-	assert(A.cols() == flag.size());
-
-	for (int i = 0, j = 0; i < flag.size(); i++)
+	LIBGP_INLINE void slice_into(MatrixXf& A, VectorXb& flag, const MatrixXf& B)
 	{
-		if (flag[i])
+		assert(A.cols() == flag.size());
+
+		for (int i = 0, j = 0; i < flag.size(); i++)
 		{
-			A.col(i) = B.col(j++);
+			if (flag[i])
+			{
+				A.col(i) = B.col(j++);
+			}
 		}
 	}
-}
 
 
-LIBGP_INLINE void LibGP::slice(Eigen::MatrixXd& B, std::vector<int>& idx, const Eigen::MatrixXd& A)
-{
-	B.resize(A.rows(), idx.size());
-	for (int i = 0; i < idx.size(); i++)
+	LIBGP_INLINE void slice(MatrixXf& B, std::vector<int>& idx, const MatrixXf& A)
 	{
-		B.col(i) = A.col(idx[i]);
+		B.resize(A.rows(), idx.size());
+		for (int i = 0; i < idx.size(); i++)
+		{
+			B.col(i) = A.col(idx[i]);
+		}
 	}
-}
 
-LIBGP_INLINE void LibGP::slice_into(Eigen::MatrixXd& A, std::vector<int>& idx, const Eigen::MatrixXd& B)
-{
-	for (int i = 0; i < idx.size(); i++)
+	LIBGP_INLINE void slice_into(MatrixXf& A, std::vector<int>& idx, const MatrixXf& B)
 	{
-		A.col(idx[i]) = B.col(i);
+		for (int i = 0; i < idx.size(); i++)
+		{
+			A.col(idx[i]) = B.col(i);
+		}
 	}
-}
 
-LIBGP_INLINE void LibGP::slice_into(Eigen::VectorXi& A, LibGP::VectorXb& flag, const int b)
-{
-	assert(A.rows() == flag.size());
-
-	for (int i = 0; i < flag.size(); i++)
+	LIBGP_INLINE void slice_into(VectorXi& A, VectorXb& flag, const int b)
 	{
-		if (flag[i]) A[i] = b;
+		assert(A.rows() == flag.size());
+
+		for (int i = 0; i < flag.size(); i++)
+		{
+			if (flag[i]) A[i] = b;
+		}
 	}
-}
 
-LIBGP_INLINE void LibGP::slice_into(Eigen::VectorXi& A, std::vector<int>& idx, const int b)
-{
-	for (int i = 0; i < idx.size(); i++)
+	LIBGP_INLINE void slice_into(VectorXi& A, std::vector<int>& idx, const int b)
 	{
-		A[idx[i]] = b;
+		for (int i = 0; i < idx.size(); i++)
+		{
+			A[idx[i]] = b;
+		}
 	}
 }

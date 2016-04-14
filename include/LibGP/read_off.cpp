@@ -88,7 +88,7 @@ namespace LibGP
 
 
 
-// LIBGP_INLINE bool LibGP::read_off(std::string filename, Eigen::MatrixXd& V, Eigen::MatrixXi& F)
+// LIBGP_INLINE bool LibGP::read_off(std::string filename, MatrixXf& V, MatrixXi& F)
 // {
 // 	std::ifstream infile(filename);
 // 

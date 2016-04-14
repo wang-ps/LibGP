@@ -22,12 +22,14 @@ namespace LibGP
 		return avg_len / (Float)(3 * F.cols());
 	}
 
-}
-
 #ifdef LIBPG_STATIC_LIBRARY
 // Explicit template specialization
 template<> 
-Float LibGP::compute_avg_edge_length<Eigen::MatrixXd, Eigen::MatrixXi>(
-	const Eigen::MatrixBase<Eigen::MatrixXd>&,
-	const Eigen::MatrixBase<Eigen::MatrixXi>&);
+Float compute_avg_edge_length<MatrixXf, MatrixXi>(
+	const Eigen::MatrixBase<MatrixXf>&,
+	const Eigen::MatrixBase<MatrixXi>&);
 #endif
+
+}
+
+

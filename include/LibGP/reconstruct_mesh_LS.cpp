@@ -3,44 +3,47 @@
 #include "compute_face_center.h"
 
 
-LIBGP_INLINE void LibGP::reconstruct_mesh_LS(
-	Eigen::MatrixXd& V1, const Eigen::MatrixXd& V,
-	const Eigen::MatrixXi& F, const Eigen::MatrixXd& N1, int it_num /* = 30 */)
+namespace LibGP
 {
-	// compute vertex_face_ring
-	std::vector<std::vector<int>> vf_ring;
-	LibGP::compute_vtx_face_ring(vf_ring, F);
-
-	// update vertex
-	LibGP::reconstruct_mesh_LS(V1, V, F, N1, vf_ring, it_num);
-}
-
-LIBGP_INLINE void LibGP::reconstruct_mesh_LS(
-	Eigen::MatrixXd& V1, const Eigen::MatrixXd& V,
-	const Eigen::MatrixXi& F, const Eigen::MatrixXd& N1,
-	const std::vector<std::vector<int>>& vf_ring, int it_num /* = 30 */)
-{
-	// init
-	V1 = V;
-
-	// iteration
-	Eigen::MatrixXd Fc, V2;
-	for (int it = 0; it < it_num; it++)
+	LIBGP_INLINE void reconstruct_mesh_LS(
+		MatrixXf& V1, const MatrixXf& V,
+		const MatrixXi& F, const MatrixXf& N1, int it_num /* = 30 */)
 	{
-		// compute face center
-		LibGP::compute_face_center(Fc, V1, F);
+		// compute vertex_face_ring
+		vecveci vf_ring;
+		compute_vtx_face_ring(vf_ring, F);
 
 		// update vertex
-		V2 = V1;
-		#pragma omp parallel for
-		for (int i = 0; i < vf_ring.size(); i++)
+		reconstruct_mesh_LS(V1, V, F, N1, vf_ring, it_num);
+	}
+
+	LIBGP_INLINE void reconstruct_mesh_LS(
+		MatrixXf& V1, const MatrixXf& V,
+		const MatrixXi& F, const MatrixXf& N1,
+		const vecveci& vf_ring, int it_num /* = 30 */)
+	{
+		// init
+		V1 = V;
+
+		// iteration
+		MatrixXf Fc, V2;
+		for (int it = 0; it < it_num; it++)
 		{
-			Eigen::Vector3d vt(0, 0, 0);
-			for (const int& fi : vf_ring[i])
+			// compute face center
+			compute_face_center(Fc, V1, F);
+
+			// update vertex
+			V2 = V1;
+			#pragma omp parallel for
+			for (int i = 0; i < vf_ring.size(); i++)
 			{
-				vt += N1.col(fi) * (N1.col(fi).dot(Fc.col(fi) - V2.col(i)));
+				Eigen::Vector3d vt(0, 0, 0);
+				for (const int& fi : vf_ring[i])
+				{
+					vt += N1.col(fi) * (N1.col(fi).dot(Fc.col(fi) - V2.col(i)));
+				}
+				V1.col(i) += vt / (Float)vf_ring[i].size();
 			}
-			V1.col(i) += vt / (double)vf_ring[i].size();
 		}
 	}
 }

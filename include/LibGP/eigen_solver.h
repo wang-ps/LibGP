@@ -4,9 +4,9 @@
 namespace LibGP
 {
 	LIBGP_INLINE void eigen_solver(
-		Eigen::VectorXd& eig_values,
-		Eigen::MatrixXd& eig_vectors,
-		const Eigen::MatrixXd& A,
+		VectorXf& eig_values,
+		MatrixXf& eig_vectors,
+		const MatrixXf& A,
 		const bool ascending = true);
 }
 

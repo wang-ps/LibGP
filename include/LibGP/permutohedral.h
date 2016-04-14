@@ -4,6 +4,12 @@
 #include <memory>
 using std::vector;
 
+/* Application precision -- can be set to single or Float precision */
+#if defined(SINGLE_PRECISION)
+typedef float Float;
+#else
+typedef double Float;
+#endif
 
 // Hash table implementation for permutohedral lattice.
 //
@@ -26,11 +32,11 @@ public:
 	// Returns a pointer to the keys array.
 	vector<short> &getKeys() { return keys; }
 	// Returns a pointer to the values array.
-	vector<double> &getValues() { return values; }
+	vector<Float> &getValues() { return values; }
 	// Looks up the value vector associated with a given key. May or
 	// may not create a new entry if that key doesn't exist.
-	double *lookup(const vector<short> &key, bool create = true) {
-		// Double hash table size if necessary
+	Float *lookup(const vector<short> &key, bool create = true) {
+		// Float hash table size if necessary
 		if (create && filled >= entries.size() / 2) { grow(); }
 		// Hash the key
 		size_t h = hash(&key[0]) % entries.size();
@@ -98,7 +104,7 @@ private:
 		int valueIdx;
 	};
 	vector<short> keys;
-	vector<double> values;
+	vector<Float> values;
 	vector<Entry> entries;
 	size_t filled;
 	int kd, vd;
@@ -118,9 +124,9 @@ public:
 	// vd : value dimensions
 	// n : number of items to filter
 	// out : place to store the output
-	static void filter(const double *pos, int pd,
-		const double *val, int vd,
-		int n, double *out) {
+	static void filter(const Float *pos, int pd,
+		const Float *val, int vd,
+		int n, Float *out) {
 		// Create lattice
 		PermutohedralLattice lattice(pd, vd, n);
 		// Splat
@@ -166,12 +172,12 @@ public:
 		// position vector into the hyperplane
 		for (int i = 0; i < d; i++) {
 			// the diagonal entries for normalization
-			scaleFactor[i] = 1.0f / (sqrt((double)(i + 1)*(i + 2)));
-			scaleFactor[i] *= (d + 1)*sqrtf(2.0 / 3);
+			scaleFactor[i] = 1.0f / (sqrt((Float)(i + 1)*(i + 2)));
+			scaleFactor[i] *= (d + 1)*sqrt(2.0 / 3);
 		}
 	}
 	// Performs splatting with given position and value vectors
-	void splat(const double *position, const double *value) {
+	void splat(const Float *position, const Float *value) {
 		// First elevate position into the (d+1)-dimensional hyperplane
 		elevated[d] = -d*position[d - 1] * scaleFactor[d - 1];
 		for (int i = d - 1; i > 0; i--)
@@ -180,13 +186,13 @@ public:
 			(i + 2)*position[i] * scaleFactor[i]);
 		elevated[0] = elevated[1] + 2 * position[0] * scaleFactor[0];
 		// Prepare to find the closest lattice points
-		double scale = 1.0f / (d + 1);
+		Float scale = 1.0 / (d + 1.0);
 		// Greedily search for the closest remainder-zero lattice point
 		int sum = 0;
 		for (int i = 0; i <= d; i++) {
-			double v = elevated[i] * scale;
-			double up = ceilf(v)*(d + 1);
-			double down = floorf(v)*(d + 1);
+			Float v = elevated[i] * scale;
+			Float up = ceilf(v)*(d + 1);
+			Float down = floorf(v)*(d + 1);
 			if (up - elevated[i] < elevated[i] - down) {
 				greedy[i] = (short)up;
 			}
@@ -253,7 +259,7 @@ public:
 				key[i] = greedy[i] + canonical[remainder*(d + 1) + rank[i]];
 			}
 			// Retrieve pointer to the value at this vertex
-			double *val = hashTable.lookup(key, true);
+			Float *val = hashTable.lookup(key, true);
 			// Accumulate values with barycentric weight
 			for (int i = 0; i < vd; i++) {
 				val[i] += barycentric[remainder] * value[i];
@@ -271,8 +277,8 @@ public:
 	// Performs slicing out of position vectors. The barycentric
 	// weights and the simplex containing each position vector were
 	// calculated and stored in the splatting step.
-	void slice(double *col) {
-		const vector<double> &vals = hashTable.getValues();
+	void slice(Float *col) {
+		const vector<Float> &vals = hashTable.getValues();
 		for (int j = 0; j < vd; j++) { col[j] = 0; }
 		for (int i = 0; i <= d; i++) {
 			ReplayEntry r = replay[nReplay++];
@@ -285,9 +291,9 @@ public:
 	void blur() {
 		// Prepare temporary arrays
 		vector<short> neighbor1(d + 1), neighbor2(d + 1);
-		vector<double> zero(vd, 0.0);
-		vector<double> newValue(vd*hashTable.size());
-		vector<double> &oldValue = hashTable.getValues();
+		vector<Float> zero(vd, 0.0);
+		vector<Float> newValue(vd*hashTable.size());
+		vector<Float> &oldValue = hashTable.getValues();
 		// For each of d+1 axes,
 		for (int j = 0; j <= d; j++) {
 			// For each vertex in the lattice,
@@ -300,10 +306,10 @@ public:
 				}
 				neighbor1[j] = key[j] - d;
 				neighbor2[j] = key[j] + d;
-				double *oldVal = &oldValue[i*vd];
-				double *newVal = &newValue[i*vd];
-				double *v1 = hashTable.lookup(neighbor1, false);
-				double *v2 = hashTable.lookup(neighbor2, false);
+				Float *oldVal = &oldValue[i*vd];
+				Float *newVal = &newValue[i*vd];
+				Float *v1 = hashTable.lookup(neighbor1, false);
+				Float *v2 = hashTable.lookup(neighbor2, false);
 				if (!v1) v1 = &zero[0];
 				if (!v2) v2 = &zero[0];
 				// Mix values of the three vertices
@@ -316,12 +322,12 @@ public:
 	}
 private:
 	int d, vd, n;
-	vector<double> elevated, scaleFactor, barycentric;
+	vector<Float> elevated, scaleFactor, barycentric;
 	vector<short> canonical, key, greedy;
 	vector<char> rank;
 	struct ReplayEntry {
 		int offset;
-		double weight;
+		Float weight;
 	};
 	vector<ReplayEntry> replay;
 	int nReplay;
