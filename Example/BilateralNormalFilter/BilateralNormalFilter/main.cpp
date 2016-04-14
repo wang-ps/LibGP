@@ -4,9 +4,11 @@
 #include <LibGP/bilateral_normal_filter.h>
 using namespace std;
 
-int main()
+int main(int argc, char* argv[])
 {
-	string filename = "C:\\Users\\wps\\Desktop\\MLDenoise\\Noisy\\fandisk_n2.obj";
+	if (argc != 3) return 0;
+	
+	string filename(argv[1]), filename1(argv[2]);
 	Eigen::MatrixXd V;
 	Eigen::MatrixXi F;
 	LibGP::read_mesh(filename, V, F);
@@ -14,7 +16,6 @@ int main()
 	Eigen::MatrixXd V1;
 	LibGP::bilateral_normal_filter(V1, V, F);
 
-	string filename1 = "C:\\Users\\wps\\Desktop\\fandisk_n2.obj";
 	LibGP::write_mesh(filename1, V1, F);
 
 	return 0;
