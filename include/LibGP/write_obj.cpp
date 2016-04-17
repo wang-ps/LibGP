@@ -15,11 +15,7 @@ namespace LibGP{
 		#pragma omp parallel for 
 		for (int i = 0; i < V.cols(); i++)
 		{
-			#if defined(SINGLE_PRECISION)
-				sprintf(vec1[i], "v %.6f %.6f %.6f\n", V(0, i), V(1, i), V(2, i));
-			#else
-				sprintf(vec1[i], "v %.6lf %.6lf %.6lf\n", V(0, i), V(1, i), V(2, i));
-			#endif
+			sprintf(vec1[i], "v %.6f %.6f %.6f\n", V(0, i), V(1, i), V(2, i));			
 		}
 
 		std::vector<char[128]> vec2(F.cols());
