@@ -10,6 +10,7 @@
 #include <atlstr.h>
 #include <Windows.h>
 #include <io.h>
+#include <fcntl.h>
 
 #include <Eigen/Dense>
 #include <Eigen/Sparse>
