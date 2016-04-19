@@ -1,7 +1,10 @@
 #include "write_obj.h"
 
 namespace LibGP{
-	LIBGP_INLINE bool LibGP::write_obj(std::string filename, const MatrixXf& V, const MatrixXi& F)
+	template <typename DerivedV, typename DerivedF>
+	LIBGP_INLINE bool write_obj(std::string filename,
+		const Eigen::MatrixBase<DerivedV>& V,
+		const Eigen::MatrixBase<DerivedF>& F)
 	{
 		std::ofstream outfile(filename, std::ios::binary);
 		if (!outfile)
