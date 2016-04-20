@@ -3,10 +3,8 @@
 
 namespace LibGP
 {
-	template <typename DerivedV, typename DerivedF>
 	LIBGP_INLINE bool write_mesh(std::string filename,
-		const Eigen::MatrixBase<DerivedV>& V,
-		const Eigen::MatrixBase<DerivedF>& F);
+		const MatrixXf& V, const MatrixXi& F);
 }
 
 #ifndef LIBPG_STATIC_LIBRARY

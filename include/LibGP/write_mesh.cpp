@@ -3,10 +3,7 @@
 #include "write_off.h"
 
 namespace LibGP{
-	template <typename DerivedV, typename DerivedF>
-	LIBGP_INLINE bool write_mesh(std::string filename,
-		const Eigen::MatrixBase<DerivedV>& V,
-		const Eigen::MatrixBase<DerivedF>& F)
+	LIBGP_INLINE bool write_mesh(std::string filename, const MatrixXf& V, const MatrixXi& F)
 	{
 		size_t found = filename.rfind('.');
 		if (found != std::string::npos)
