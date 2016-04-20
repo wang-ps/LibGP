@@ -20,6 +20,7 @@ LIBGP_INLINE void LibGP::get_all_filenames(std::vector<std::string>& _all_filena
 	intptr_t hFile = _findfirst(_filename.c_str(), &c_file);
 	do
 	{
+		if (hFile == -1) break;
 		_all_filenames.push_back(file_path + std::string(c_file.name));
 	} while (_findnext(hFile, &c_file) == 0);
 	_findclose(hFile);
