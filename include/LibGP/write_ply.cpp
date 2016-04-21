@@ -3,12 +3,18 @@
 
 namespace LibGP{
 	LIBGP_INLINE void write_ply( const std::string &filename,
-		const MatrixXf &V, const MatrixXi &F,
-		const MatrixXf &UV, const MatrixXu8 &C)
+		const MatrixXf &V, const MatrixXi &F, const MatrixXf &UV, 
+		const std::vector<std::string> comments, const MatrixXu8 &C)
 	{
 		//  create ply 
 		p_ply ply = ply_create(filename.c_str(), PLY_ASCII, nullptr, 0, nullptr);
 		if (!ply) throw std::runtime_error("Unable to write PLY file!");
+
+		// add comments
+		for (auto& str : comments)
+		{
+			ply_add_comment(ply, str.c_str());
+		}
 
 		//  add vertex 
 		ply_add_element(ply, "vertex", V.cols());
