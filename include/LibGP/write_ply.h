@@ -8,7 +8,7 @@ namespace LibGP
 		const MatrixXf &V,
 		const MatrixXi &F,		
 		const MatrixXf &UV = MatrixXf(),
-		const MatrixXf &C = MatrixXf());
+		const MatrixXu8 &C = MatrixXu8());
 
 }
 

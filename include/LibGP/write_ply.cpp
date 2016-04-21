@@ -4,7 +4,7 @@
 namespace LibGP{
 	LIBGP_INLINE void write_ply( const std::string &filename,
 		const MatrixXf &V, const MatrixXi &F,
-		const MatrixXf &UV, const MatrixXf &C)
+		const MatrixXf &UV, const MatrixXu8 &C)
 	{
 		//  create ply 
 		p_ply ply = ply_create(filename.c_str(), PLY_ASCII, nullptr, 0, nullptr);
@@ -26,9 +26,9 @@ namespace LibGP{
 
 		//  add color 
 		if (C.size() > 0) {
-			ply_add_scalar_property(ply, "red", PLY_FLOAT);
-			ply_add_scalar_property(ply, "green", PLY_FLOAT);
-			ply_add_scalar_property(ply, "blue", PLY_FLOAT);
+			ply_add_scalar_property(ply, "red", PLY_UCHAR);
+			ply_add_scalar_property(ply, "green", PLY_UCHAR);
+			ply_add_scalar_property(ply, "blue", PLY_UCHAR);
 			if (C.cols() != V.cols() || (C.rows() != 3 && C.rows() != 4))
 				throw std::runtime_error("Color matrix has incorrect size");
 		}

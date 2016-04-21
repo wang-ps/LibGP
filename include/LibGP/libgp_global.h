@@ -55,7 +55,8 @@ typedef Eigen::Matrix<bool, Eigen::Dynamic, 1>  				VectorXb;
 typedef Eigen::Matrix<Float, Eigen::Dynamic, 1> 				VectorXf;
 typedef Eigen::Matrix<int, Eigen::Dynamic, Eigen::Dynamic>		MatrixXi;
 typedef Eigen::Matrix<Float, Eigen::Dynamic, Eigen::Dynamic>	MatrixXf;
+typedef Eigen::Matrix<UINT8, Eigen::Dynamic, Eigen::Dynamic>	MatrixXu8;
 typedef Eigen::SparseMatrix<Float>								SMatrixf;
 typedef Eigen::Triplet<Float>									Tripletf;
-
+ 
 }
