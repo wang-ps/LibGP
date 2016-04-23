@@ -10,6 +10,8 @@ namespace LibGP
 		if (found != std::string::npos)
 		{
 			std::string suffix(filename, found + 1);
+			std::transform(suffix.begin(), suffix.end(), suffix.begin(), tolower);
+
 			if (suffix == "obj")
 			{
 				read_obj(filename, V, F);
