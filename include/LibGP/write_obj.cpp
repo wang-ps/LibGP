@@ -1,7 +1,7 @@
 #include "write_obj.h"
 
 namespace LibGP{
-	LIBGP_INLINE bool LibGP::write_obj(std::string filename, const MatrixXf& V, const MatrixXi& F)
+	LIBGP_INLINE bool write_obj(std::string filename, const MatrixXf& V, const MatrixXi& F)
 	{
 		std::ofstream outfile(filename, std::ios::binary);
 		if (!outfile)
