@@ -3,7 +3,7 @@
 
 namespace LibGP
 {
-	enum ColorMapType{ JET = 1.0, RAINBOW};
+	enum ColorMapType{ JET, RAINBOW};
 	LIBGP_INLINE void color_map(MatrixXu8 &C, const VectorXf &X, ColorMapType colormap = RAINBOW);
 
 	LIBGP_INLINE void color_map(MatrixXu8 &C, const std::vector<Float> &X, ColorMapType colormap = RAINBOW);
