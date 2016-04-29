@@ -61,6 +61,7 @@ if light % || strcmp(shading_type, 'interp')
     % shading interp;
     camlight left;
     camlight right;
+    camlight(0, 180); % back
     material([0.4 0.5 0.5])
 end
 
