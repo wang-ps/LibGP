@@ -1,6 +1,6 @@
-function [ V1 ] = reconstruct_mesh_local( V, F, N1, it_num )
+function [ V1 ] = reconstruct_mesh_local_matlab( V, F, N1, it_num )
 
-	if ~exist('it_num', 'var'), it_num = 10; end
+	if ~exist('it_num', 'var'), it_num = 20; end
 
 	% pre-compute
 	vfr = compute_vtx_face_ring(F);
