@@ -37,12 +37,15 @@ namespace LibGP
 			#pragma omp parallel for
 			for (int i = 0; i < vf_ring.size(); i++)
 			{
-				Eigen::Vector3d vt(0, 0, 0);
-				for (const int& fi : vf_ring[i])
+				if (vf_ring[i].size()>0)
 				{
-					vt += N1.col(fi) * (N1.col(fi).dot(Fc.col(fi) - V2.col(i)));
+					Eigen::Vector3d vt(0, 0, 0);
+					for (const int& fi : vf_ring[i])
+					{
+						vt += N1.col(fi) * (N1.col(fi).dot(Fc.col(fi) - V2.col(i)));
+					}
+					V1.col(i) += vt / (Float)vf_ring[i].size();
 				}
-				V1.col(i) += vt / (Float)vf_ring[i].size();
 			}
 		}
 	}

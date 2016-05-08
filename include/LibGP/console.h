@@ -1,4 +1,4 @@
-#program once
+#pragma once
 
 namespace LibGP
 {
