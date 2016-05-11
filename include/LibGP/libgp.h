@@ -32,6 +32,9 @@
 #include "get_all_filenames.h"
 #include "console.h"
 
+// delete faces or vertices
+#include "delete_faces.h"
+
 // mesh filtering
 #include "bilateral_normal_filter.h"
 #include "reconstruct_mesh_LS.h"
