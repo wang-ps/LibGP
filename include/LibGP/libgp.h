@@ -9,7 +9,7 @@
 // connectivity
 #include "list_to_adj.h"
 #include "adj_to_list.h"
-#include "compute_adj_matrix.h"
+#include "compute_vtx_adj.h"
 #include "compute_face_face_ringv.h"
 #include "compute_vtx_face_ring.h"
 #include "compute_vtx_ring.h"
@@ -23,6 +23,7 @@
 // eigen wrapper
 #include "slice.h"
 #include "speye.h"
+#include "set_constant.h"
 #include "eigen_solver.h"
 #include "normalize_colwise.h"
 

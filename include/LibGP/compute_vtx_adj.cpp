@@ -1,8 +1,8 @@
-#include "compute_adj_matrix.h"
+#include "compute_vtx_adj.h"
 
 namespace LibGP
 {
-	LIBGP_INLINE void compute_adj_matrix(SMatrixf& A, const MatrixXi& F)
+	LIBGP_INLINE void compute_vtx_adj(SMatrixf& A, const MatrixXi& F)
 	{
 		std::vector<Tripletf> coeff;
 		coeff.reserve(3 * F.cols());
@@ -17,12 +17,11 @@ namespace LibGP
 		SMatrixf T(nv, nv);
 		T.setFromTriplets(coeff.begin(), coeff.end());
 
+		// VERY IMPORTANT : deal with boundary vertex
 		A = SMatrixf(T.transpose()) + T;
-		Float* p = A.valuePtr();
-		for (int i = 0; i < A.nonZeros(); i++)
-		{
-			*(p + i) = 1.0;
-		}
+		
+		// set all non-zero to 1
+		set_constant(A, 1.0);	
 	}
 }
 
