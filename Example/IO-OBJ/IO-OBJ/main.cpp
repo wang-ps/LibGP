@@ -15,8 +15,8 @@ int main()
 	//freopen("C:\\Users\\v-pewan\\Desktop\\debug_output.txt", "w", stdout);
 
   	std::string filename3 = "C:\\Users\\v-pewan\\Desktop\\circular_box_opt.obj";
-	std::string filename1 = "C:\\Users\\wps\\Desktop\\test.obj";
-	std::string filename2 = "D:\\Projects\\libigl\\external\\cork\\samples\\ballA-test.off";
+	std::string filename1 = "C:\\Users\\v-pewan\\Desktop\\test.obj";
+	std::string filename2 = "C:\\Users\\v-pewan\\Desktop\\test-output.obj";
 
 	Eigen::MatrixXd V;
 	Eigen::MatrixXi F;

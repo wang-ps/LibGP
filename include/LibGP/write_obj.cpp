@@ -9,48 +9,50 @@ namespace LibGP{
 			cout << "Open OBJ file error!" << endl;
 			return false;
 		}
+		
+		// buffer
+		const int len = 64;
+		char* buffer = new char[(V.cols() + F.cols())*len];
 
 		// turn to string
-		std::vector<char[128]> vec1(V.cols());
+		char* pV = buffer;
 		#pragma omp parallel for 
 		for (int i = 0; i < V.cols(); i++)
 		{
-			sprintf(vec1[i], "v %.6f %.6f %.6f\n", V(0, i), V(1, i), V(2, i));			
+			sprintf(pV + i*len, "v %.6f %.6f %.6f\n", V(0, i), V(1, i), V(2, i));
 		}
 
-		std::vector<char[128]> vec2(F.cols());
+		char* pF = buffer + V.cols()*len;
 		#pragma omp parallel for 
 		for (int i = 0; i < F.cols(); i++)
 		{
-			sprintf(vec2[i], "f %d %d %d\n", F(0, i) + 1, F(1, i) + 1, F(2, i) + 1);
+			sprintf(pF + i*len, "f %d %d %d\n", F(0, i) + 1, F(1, i) + 1, F(2, i) + 1);
 		}
 
-		// concat
-		std::string str;
-		for (int i = 0; i < V.cols(); str += vec1[i++]);
-		for (int i = 0; i < F.cols(); str += vec2[i++]);
+		int k = 0;
+		for (int i = 0; i < V.cols(); i++)
+		{
+			for (int j = len*i; j < len*(i+1); j++)
+			{
+				if (pV[j] == 0) break;
+				buffer[k++] = pV[j];
+			}
+		}
+		for (int i = 0; i < F.cols(); i++)
+		{
+			for (int j = len*i; j < len*(i + 1); j++)
+			{
+				if (pF[j] == 0) break;
+				buffer[k++] = pF[j];
+			}
+		}
 
 		// write into file
-		outfile.write(str.data(), str.size());
+		outfile.write(buffer, k);
 
 		// close file
 		outfile.close();
+		delete[] buffer;
 		return true;
-
-		// 
-		// 	// write into file
-		// 	outfile.write(str.data(), str.size());
-
-		// 	//std::setprecision(9)
-		// 	outfile << std::fixed ;
-		// 	for (int i = 0; i < V.cols(); i++)
-		// 	{
-		// 		outfile << "v " << V(0, i) << ' ' << V(1, i) << ' ' << V(2, i) << "\n";
-		// 	}
-		// 
-		// 	for (int i = 0; i < F.cols(); i++)
-		// 	{
-		// 		outfile << "f " << F(0, i) + 1 << ' ' << F(1, i) + 1 << ' ' << F(2, i) + 1 << "\n";
-		// 	}
 	}
 }
