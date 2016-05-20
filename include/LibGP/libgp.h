@@ -10,9 +10,9 @@
 #include "list_to_adj.h"
 #include "adj_to_list.h"
 #include "compute_vtx_adj.h"
-#include "compute_face_face_ringv.h"
-#include "compute_vtx_face_ring.h"
 #include "compute_vtx_ring.h"
+#include "compute_vtx_face_ring.h"
+#include "compute_face_ringv.h"
 
 // basic computation
 #include "compute_avg_edge_length.h"

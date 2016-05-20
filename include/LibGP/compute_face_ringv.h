@@ -3,10 +3,10 @@
 
 namespace LibGP
 {
-	LIBGP_INLINE void compute_face_face_ringv(
+	LIBGP_INLINE void compute_face_ringv(
 		vecveci& vec, const MatrixXi& F);
 }
 
 #ifndef LIBPG_STATIC_LIBRARY
-#include "compute_face_face_ringv.cpp"
+#include "compute_face_ringv.cpp"
 #endif

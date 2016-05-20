@@ -1,11 +1,11 @@
-#include "compute_face_face_ringv.h"
+#include "compute_face_ringv.h"
 #include "compute_vtx_face_ring.h"
 #include "list_to_adj.h"
 #include "adj_to_list.h"
 
 namespace LibGP
 {
-	LIBGP_INLINE void compute_face_face_ringv(
+	LIBGP_INLINE void compute_face_ringv(
 		vecveci& vec, const MatrixXi& F)
 	{
 		vecveci vf;

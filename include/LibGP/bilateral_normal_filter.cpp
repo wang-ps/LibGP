@@ -1,5 +1,5 @@
 #include "bilateral_normal_filter.h"
-#include "compute_face_face_ringv.h"
+#include "compute_face_ringv.h"
 #include "compute_avg_edge_length.h"
 #include "compute_face_center.h"
 #include "compute_face_normal.h"
@@ -12,7 +12,7 @@ namespace LibGP
 		Float sigma_r, Float sigma_s, int it_n, int it_v)
 	{
 		vecveci fring;
-		compute_face_face_ringv(fring, F);
+		compute_face_ringv(fring, F);
 
 		V1 = V;		
 		Float avg_edge_len;
