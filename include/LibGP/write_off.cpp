@@ -31,7 +31,7 @@ namespace LibGP{
 		#pragma omp parallel for 
 		for (int i = 0; i < F.cols(); i++)
 		{
-			sprintf(pF + i*len, "3 %d %d %d\n", F(0, i) + 1, F(1, i) + 1, F(2, i) + 1);
+			sprintf(pF + i*len, "3 %d %d %d\n", F(0, i), F(1, i), F(2, i));
 		}
 
 		int k = 0;
