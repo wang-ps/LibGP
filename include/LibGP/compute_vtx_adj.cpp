@@ -1,4 +1,5 @@
 #include "compute_vtx_adj.h"
+#include "set_constant.h"
 
 namespace LibGP
 {

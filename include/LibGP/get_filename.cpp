@@ -23,7 +23,7 @@ LIBGP_INLINE bool LibGP::get_filename(std::string& filename, bool open, LibGP::F
 	{
 	case LibGP::MODEL_FILE:
 		ofn.lpstrDefExt = TEXT("obj");
-		ofn.lpstrFilter = TEXT("Object Files(*.obj;*.off;*.ply;*.stl)\0 *.obj;*.off;*.ply;*.stl\0");
+		ofn.lpstrFilter = TEXT("Object Files(*.obj;*.off;*.ply)\0 *.obj;*.off;*.ply\0");
 		if (!open)
 		{
 			if (iObj < 10)
@@ -59,7 +59,7 @@ LIBGP_INLINE bool LibGP::get_filename(std::string& filename, bool open, LibGP::F
 
 	case LibGP::COLOR_FILE:
 		ofn.lpstrDefExt = TEXT("color");
-		ofn.lpstrFilter = TEXT("Color Files(*.color; *.txt;)\0 *color;*.txt\0");
+		ofn.lpstrFilter = TEXT("Color Files(*.color; *.txt;)\0 *.color;*.txt\0");
 		break;
 
 	default:
