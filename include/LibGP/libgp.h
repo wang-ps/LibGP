@@ -3,7 +3,13 @@
 
 // read and write
 #include "read_mesh.h"
+#include "read_obj.h"
+#include "read_off.h"
+#include "read_ply.h"
 #include "write_mesh.h"
+#include "write_obj.h"
+#include "write_off.h"
+#include "write_ply.h"
 #include "write_png.h"
 
 // connectivity

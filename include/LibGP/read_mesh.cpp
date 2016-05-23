@@ -1,6 +1,7 @@
 #include "read_mesh.h"
 #include "read_obj.h"
 #include "read_off.h"
+#include "read_ply.h"
 
 namespace LibGP
 {
@@ -19,6 +20,10 @@ namespace LibGP
 			else if (suffix == "off")
 			{
 				read_off(filename, V, F);
+			}
+			else if (suffix == "ply")
+			{
+				read_ply(filename, V, F);
 			}
 			else
 			{

@@ -1,6 +1,7 @@
 #include "write_mesh.h"
 #include "write_obj.h"
 #include "write_off.h"
+#include "write_ply.h"
 
 namespace LibGP{
 	LIBGP_INLINE bool write_mesh(std::string filename, const MatrixXf& V, const MatrixXi& F)
@@ -18,6 +19,10 @@ namespace LibGP{
 			else if (suffix == "off")
 			{
 				write_off(filename, V, F);
+			}
+			else if (suffix == "ply")
+			{
+				write_ply(filename, V, F);
 			}
 			else
 			{
