@@ -43,6 +43,7 @@
 
 // delete faces or vertices
 #include "delete_faces.h"
+#include "delete_pieces.h"
 
 // mesh filtering
 #include "bilateral_normal_filter.h"
