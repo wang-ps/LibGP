@@ -24,7 +24,9 @@ namespace LibGP{
 			SMatrixf I;
 			speye(I, V_.cols(), lamdbda_);
 
-			SMatrixf L = SMatrixf(G_.transpose())*M_*G_ + I;
+			//SMatrixf L = SMatrixf(G_.transpose())*M_*G_ + I;
+			SMatrixf L = G_.transpose()*M_*G_ + I;
+
 			solver_.compute(L);
 			solver_ready_ = (solver_.info() == Eigen::Success);
 		}
@@ -45,7 +47,7 @@ namespace LibGP{
 			// re-compute gradient
 			int nf = F_.cols();
 			MatrixXf Gv(3 * nf, 3);
-			#pragma omp parallel for schedule(static)
+			#pragma omp parallel for // schedule(static)
 			for (int i = 0; i < nf; i++)
 			{
 				// Apply rotation
@@ -66,7 +68,9 @@ namespace LibGP{
 			}
 
 			// slove deformation
-			MatrixXf B = SMatrixf(G_.transpose())*M_*Gv + lamdbda_ * V_.transpose();
+			//MatrixXf B = SMatrixf(G_.transpose())*M_*Gv + lamdbda_ * V_.transpose();
+			MatrixXf B = G_.transpose()*M_*Gv + lamdbda_ * V_.transpose();
+
 			V1 = solver_.solve(B).transpose();
 
 			return	solver_.info() == Eigen::Success;
@@ -96,7 +100,7 @@ namespace LibGP{
 		{
 			int nf = N1.cols();
 			Rots.resize(nf);
-			#pragma omp parallel for schedule(static)
+			#pragma omp parallel for // schedule(static)
 			for (int i = 0; i < nf; i++)
 			{
 				Vector3f n0 = Nf_.col(i);
