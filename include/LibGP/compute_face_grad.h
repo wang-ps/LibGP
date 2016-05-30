@@ -4,7 +4,7 @@
 namespace LibGP
 {
 	LIBGP_INLINE void compute_face_grad(
-		Matrix3f& grad, Float* pv0, Float* pv1, Float* pv2);
+		Matrix3f& grad, const Float* pv0, const Float* pv1, const Float* pv2);
 }
 
 #ifndef LIBPG_STATIC_LIBRARY

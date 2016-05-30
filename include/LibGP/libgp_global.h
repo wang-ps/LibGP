@@ -1,5 +1,18 @@
 #pragma once
+
+#if defined(WIN32)
+#define _CRT_SECURE_NO_DEPRECATE
 #define NOMINMAX
+//#pragma warning(disable: 4244 4018 4100 4610 4510 4127 4512 4146 4267 4503 4800 4706)
+#pragma warning(disable: 4244 4267 4800 4099)
+#endif
+
+/* inline */
+#ifndef LIBPG_STATIC_LIBRARY
+#  define LIBGP_INLINE inline
+#else
+#  define LIBGP_INLINE
+#endif
 
 #include <fstream>
 #include <iostream>
@@ -17,12 +30,6 @@
 #include <Eigen/Dense>
 #include <Eigen/Sparse>
 
-/* inline */
-#ifndef LIBPG_STATIC_LIBRARY
-#  define LIBGP_INLINE inline
-#else
-#  define LIBGP_INLINE
-#endif
 
 using std::cout;
 using std::cerr;

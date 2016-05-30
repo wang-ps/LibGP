@@ -16,7 +16,7 @@ namespace LibGP
 	{
 		int nf = F.cols();
 		int nv = V.cols();
-		Float* pV = V.data();
+		const Float* pV = V.data();
 
 		Gv.resize(nf);
 		G.resize(3 * nf, nv);

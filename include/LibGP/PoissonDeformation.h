@@ -9,7 +9,7 @@ namespace LibGP{
 	class PoissonDeformation
 	{
 	public:
-		PoissonDeformation(const MatrixXf& V, const MatrixXi& F, const Float l = 1.0e-5) :
+		PoissonDeformation(const MatrixXf& V, const MatrixXi& F, const Float l = 1.0e-4) :
 			solver_ready_(false), lamdbda_(l), V_(V), F_(F)
 		{
 			setup_solver();
@@ -17,7 +17,8 @@ namespace LibGP{
 
 		inline void setup_solver()
 		{
-			if (!solver_ready_) return;
+			if (solver_ready_) return;
+
 			compute_mesh_grad(G_, V_, F_);
 			compute_mass_matrix();
 			SMatrixf I;
@@ -51,7 +52,7 @@ namespace LibGP{
 				Eigen::Matrix3d v;
 				for (int j = 0; j < 3; j++)
 				{
-					v.col(j++) = V_.col(F_(j, i));
+					v.col(j) = V_.col(F_(j, i));
 				}
 				v = Rots[i] * v;
 
@@ -65,7 +66,7 @@ namespace LibGP{
 			}
 
 			// slove deformation
-			MatrixXf B = SMatrixf(G_)*M_*Gv + lamdbda_ * V_.transpose();
+			MatrixXf B = SMatrixf(G_.transpose())*M_*Gv + lamdbda_ * V_.transpose();
 			V1 = solver_.solve(B).transpose();
 
 			return	solver_.info() == Eigen::Success;
@@ -76,13 +77,18 @@ namespace LibGP{
 		{
 			VectorXf face_areas_;
 			compute_face_normal(Nf_, face_areas_, V_, F_);
+			// NORMALIZE FACE_AREA
+			face_areas_ /= face_areas_.mean();
 
 			int nf = F_.cols();
-			M_.resize(nf, nf);
-			M_.reserve(VectorXi::Constant(nf, 1));
+			M_.resize(3 * nf, 3 * nf);
+			M_.reserve(VectorXi::Constant(3 * nf, 1));
 			for (int i = 0; i < nf; i++)
 			{
-				M_.insert(i, i) = face_areas_[i];
+				for (int j = 0; j < 3; j++)
+				{
+					M_.insert(3 * i + j, 3 * i + j) = face_areas_[i];
+				}
 			}
 		}
 
@@ -98,8 +104,8 @@ namespace LibGP{
 
 				// compute rotation
 				Vector3f axis = n0.cross(n1);
-				Float da = axis.norm();
-				axis = da < EPS ? Eigen::Vector3d(0, 0, 1) : axis / da;
+				Float d = axis.norm();
+				axis = d < EPS ? Eigen::Vector3d(0, 0, 1) : axis / d;
 
 				Float dot01 = n0.dot(n1);
 				if (dot01 < -1)dot01 = -1;
@@ -114,7 +120,7 @@ namespace LibGP{
 		bool solver_ready_;
 		const Float lamdbda_;
 		const MatrixXf& V_;
-		const MatrixXf& F_;
+		const MatrixXi& F_;
 		MatrixXf Nf_;
 
 		SMatrixf G_;

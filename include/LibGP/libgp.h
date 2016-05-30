@@ -51,3 +51,6 @@
 // mesh filtering
 #include "bilateral_normal_filter.h"
 #include "reconstruct_mesh_LS.h"
+
+// mesh deformation
+#include "PoissonDeformation.h"

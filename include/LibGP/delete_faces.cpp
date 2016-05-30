@@ -36,7 +36,7 @@ namespace LibGP
 		VectorXi vi = VectorXi::Constant(V.cols(), -1);
 		for (int i = 0; i < V.cols(); i++)
 		{
-			if (valid_v[i] > 0)
+			if (valid_v[i])
 			{
 				vi[i] = nvv++;
 			}
