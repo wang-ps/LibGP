@@ -26,7 +26,10 @@
 #include "compute_avg_edge_length.h"
 #include "compute_face_normal.h"
 #include "compute_face_center.h"
+#include "compute_face_grad.h"
+#include "compute_mesh_grad.h"
 #include "compute_normal.h"
+
 
 // eigen wrapper
 #include "slice.h"
