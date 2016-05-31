@@ -18,13 +18,17 @@ int main(int argc, char* argv[])
 	vector<string> filenames;
 	LibGP::get_all_filenames(filenames, path_name);
 
-	#pragma omp parallel for
+	//#pragma omp parallel for
 	for (int i = 0; i < filenames.size(); i++)
 	{
+		cout << "Processing : "
+			<< filenames[i].substr(filenames[i].rfind('\\') + 1)
+			<< "\n";
+
 		MatrixXd V; MatrixXi F;
 		LibGP::read_mesh(filenames[i], V, F);
 		LibGP::delete_pieces(V, F, min_num);
-
+		
 		filenames[i].insert(filenames[i].rfind('.'), "_rst");
 		LibGP::write_mesh(filenames[i], V, F);
 	}

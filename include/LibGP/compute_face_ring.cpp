@@ -10,7 +10,7 @@ namespace LibGP
 		SMatrixf A;
 		compute_edge_face_adj(A, F);
 
-		SMatrixf B = SMatrixf(A.transpose()) * A;
+		SMatrixf B = A.transpose() * A;
 		adj_to_list(vec, B);
 	}
 }

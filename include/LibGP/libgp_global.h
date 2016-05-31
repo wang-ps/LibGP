@@ -2,6 +2,7 @@
 
 #if defined(WIN32)
 #define _CRT_SECURE_NO_DEPRECATE
+#define _CRT_SECURE_NO_WARNINGS
 #define NOMINMAX
 //#pragma warning(disable: 4244 4018 4100 4610 4510 4127 4512 4146 4267 4503 4800 4706)
 #pragma warning(disable: 4244 4267 4800 4099)
