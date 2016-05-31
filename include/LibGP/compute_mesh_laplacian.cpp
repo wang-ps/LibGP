@@ -10,7 +10,7 @@ namespace LibGP
 		int nv = V.cols();
 
 		// construct weight matrix
-		std::vector<Tripletf> coeff(3 * nf);
+		std::vector<Tripletf> coeff(3 * nf + nv);
 		#pragma omp parallel for
 		for (int i = 0; i < nf; i++)
 		{
@@ -44,11 +44,47 @@ namespace LibGP
 			coeff[3 * i + 1] = Tripletf(v1, v2, weight[1]);
 			coeff[3 * i + 2] = Tripletf(v2, v0, weight[2]);
 		}
+		// for diag elements
+		#pragma omp parallel for
+		for (int i = 0; i < nv; i++)
+		{
+			coeff[i + 3 * nf] = Tripletf(i, i, 1);
+		}
+
 		SMatrixf mat(nv, nv);
 		mat.setFromTriplets(coeff.begin(), coeff.end());
 		L = 0.5*(mat + SMatrixf(mat.transpose()));
+
+		// rectify diag elements
+		#pragma omp parallel for
+		for (int i = 0; i < L.outerSize(); ++i)
+		{
+			double sum = 0;
+			double* pdiag = nullptr;
+			for (SMatrixf::InnerIterator it(L, i); it; ++it)
+			{
+				if (it.row() == it.col())
+				{
+					pdiag = &(it.valueRef());
+					continue;
+				}
+				sum += it.value();
+			}
+			*pdiag = - sum;
+
+			if (normalize)
+			{
+				for (SMatrixf::InnerIterator it(L, i); it; ++it)
+				{
+					it.valueRef() /= sum;
+				}
+			}
+		}
+
+		if (normalize)	L = L.transpose().eval();
 	}
 }
+
 
 
 
