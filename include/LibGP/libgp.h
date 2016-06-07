@@ -21,6 +21,7 @@
 #include "compute_face_ringv.h"
 #include "compute_face_ring.h"
 #include "compute_edge_face_adj.h"
+#include "compute_edge_face_ring.h"
 
 // basic computation
 #include "compute_avg_edge_length.h"

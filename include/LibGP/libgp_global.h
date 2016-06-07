@@ -20,6 +20,7 @@
 #include <sstream>
 #include <vector>
 #include <algorithm>
+#include <unordered_map>
 #include <cassert>
 #include <omp.h>
 #include <string>
