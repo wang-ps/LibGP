@@ -7,6 +7,8 @@ namespace LibGP
 		const MatrixXi& F)
 	{
 		const int nv = F.maxCoeff() + 1;
+		// V + F - E = 2 - 2*g
+		E2F.reserve(nv + F.cols() + 100);
 
 		for (int i = 0; i < F.cols(); i++)
 		{
@@ -26,16 +28,20 @@ namespace LibGP
 					key = v0*nv + v1;
 				}
 				
-				// insert
-				auto it = E2F.find(key);
-				if (it == E2F.end())
-				{
-					auto tpair = E2F.emplace(key, Vector2i(-1, -1));
-					it = tpair.first;
-				}
+				//// insert
+				//auto it = E2F.find(key);
+				//if (it == E2F.end())
+				//{
+				//	auto tpair = E2F.emplace(key, Vector2i(-1, -1));
+				//	it = tpair.first;
+				//}
+				//// modify value
+				//it->second[ei] = i;
 
+				// try to insert
+				auto tpair = E2F.emplace(key, Vector2i(-1, -1));
 				// modify value
-				it->second[ei] = i;
+				(*tpair.first).second[ei] = i;
 			}
 		}
 	}

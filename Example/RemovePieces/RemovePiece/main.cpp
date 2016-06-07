@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
 	vector<string> filenames;
 	LibGP::get_all_filenames(filenames, path_name);
 
-	//#pragma omp parallel for
+	#pragma omp parallel for
 	for (int i = 0; i < filenames.size(); i++)
 	{
 		cout << "Processing : "
