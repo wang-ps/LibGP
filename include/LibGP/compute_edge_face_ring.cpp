@@ -3,8 +3,7 @@
 namespace LibGP
 {
 	LIBGP_INLINE void compute_edge_face_ring(
-		std::unordered_map<int, Vector2i>& E2F,
-		const MatrixXi& F)
+		HashEdge& E2F, const MatrixXi& F)
 	{
 		const int nv = F.maxCoeff() + 1;
 		// V + F - E = 2 - 2*g
@@ -21,13 +20,9 @@ namespace LibGP
 				if (v0 > v1)
 				{
 					ei = 1;
-					key = v0 + v1*nv;
+					std::swap(v0, v1);
 				}
-				else
-				{
-					key = v0*nv + v1;
-				}
-				
+
 				//// insert
 				//auto it = E2F.find(key);
 				//if (it == E2F.end())
@@ -39,7 +34,7 @@ namespace LibGP
 				//it->second[ei] = i;
 
 				// try to insert
-				auto tpair = E2F.emplace(key, Vector2i(-1, -1));
+				auto tpair = E2F.emplace(Vector2i(v0, v1), Vector2i(-1, -1));
 				// modify value
 				(*tpair.first).second[ei] = i;
 			}

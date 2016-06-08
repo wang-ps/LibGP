@@ -30,12 +30,12 @@ int main(int argc, char* argv[])
 	cout << endl;
 
 	// test edge_face_ring
-	std::unordered_map<int, Eigen::Vector2i> E2F;
+	LibGP::HashEdge E2F;
 	LibGP::compute_edge_face_ring(E2F, F);
 	cout << "edge_face_ring" << endl;
 	for (auto& it : E2F)
 	{
-		cout << it.first << " : ("
+		cout << "(" << it.first[0] << ", " << it.first[1] << ") : ("
 			<< it.second[0] << ", " << it.second[1] << ")" << endl;
 	}
 	cout << "End of edge_face_ring" << endl;

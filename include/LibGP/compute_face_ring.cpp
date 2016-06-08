@@ -14,7 +14,7 @@ namespace LibGP
 // 		SMatrixf B = A.transpose() * A;
 // 		adj_to_list(vec, B);
 
-		std::unordered_map<int, Vector2i> E2F;
+		LibGP::HashEdge E2F;
 		compute_edge_face_ring(E2F, F);
 
 		vec.resize(F.cols());
