@@ -67,7 +67,8 @@ namespace LibGP
 		ply_set_read_cb(ply, "vertex", "z", rply_vertex_cb, &V, 2);
 
 		// set face callback
-		ply_set_read_cb(ply, "face", "vertex_indices", rply_index_cb, &F, 0);
+		long nfr = ply_set_read_cb(ply, "face", "vertex_indices", rply_index_cb, &F, 0);
+		if (nfr < 1) ply_set_read_cb(ply, "face", "vertex_index", rply_index_cb, &F, 0);
 
 		//ply_read
 		ply_read(ply);
