@@ -44,7 +44,7 @@ if ~isempty(normal)
     
     hold on;
     quiver3(V(sel,1), V(sel,2), V(sel,3), ...
-        normal(sel,1), normal(sel,1), normal(sel,1), normal_scaling);
+        normal(sel,1), normal(sel,2), normal(sel,3), normal_scaling);
     hold off;
 end
 
