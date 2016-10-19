@@ -1,6 +1,7 @@
 #include "get_filename.h"
 
-LIBGP_INLINE bool LibGP::get_filename(std::string& filename, bool open, LibGP::FileType filetype, std::string default_name)
+LIBGP_INLINE bool LibGP::get_filename(std::string& filename,
+	bool open, LibGP::FileType filetype, std::string default_name)
 
 {
 	// file index
@@ -63,7 +64,8 @@ LIBGP_INLINE bool LibGP::get_filename(std::string& filename, bool open, LibGP::F
 		break;
 
 	default:
-		return false;
+		ofn.lpstrDefExt = TEXT("files");
+		ofn.lpstrFilter = TEXT("Files(*.*)\0 *.*\0");
 		break;
 	}
 

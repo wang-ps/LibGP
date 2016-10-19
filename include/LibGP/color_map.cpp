@@ -34,7 +34,8 @@ namespace LibGP
 	{
 		const Float rone = 0.8f, gone = 1.0f, bone = 1.0f;
 
-		x = std::max(std::min(x, 1.0), 0.0);
+		if (x > 1.0) x = 1.0;
+		if (x < 0.0) x = 0.0;
 		if (x < 1.0 / 8.0) 
 		{
 			r = 0;
@@ -69,7 +70,8 @@ namespace LibGP
 
 	LIBGP_INLINE void rain_bow(Float &r, Float &g, Float &b, Float x)
 	{
-		x = std::max(std::min(x, 1.0), 0.0);
+		if (x > 1.0) x = 1.0;
+		if (x < 0.0) x = 0.0;
 		if (x < 0.25)
 		{
 			r = 0.0;

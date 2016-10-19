@@ -37,6 +37,9 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
+namespace LibGP{
+#define  SINGLE_PRECISION
+
 /* Application precision -- can be set to single or Float precision */
 #if defined(SINGLE_PRECISION)
 typedef float Float;
@@ -44,9 +47,7 @@ typedef float Float;
 typedef double Float;
 #endif
 
-namespace LibGP{
-
-const Float EPS = 1.0e-10;
+const Float EPS = 1.0e-20;
 
 /*std vector */
 typedef std::vector<std::vector<int>>							vecveci;

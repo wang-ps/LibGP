@@ -51,7 +51,7 @@ namespace LibGP{
 			for (int i = 0; i < nf; i++)
 			{
 				// Apply rotation
-				Eigen::Matrix3d v;
+				Matrix3f v;
 				for (int j = 0; j < 3; j++)
 				{
 					v.col(j) = V_.col(F_(j, i));
@@ -59,7 +59,7 @@ namespace LibGP{
 				v = Rots[i] * v;
 
 				// calc gradient
-				Eigen::Matrix3d grad;
+				Matrix3f grad;
 				Float* pv = v.data();
 				compute_face_grad(grad, pv, pv + 3, pv + 6);
 
