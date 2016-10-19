@@ -8,7 +8,7 @@ namespace LibGP
 		int nf = F.cols();
 		int nv = V.cols();
 
-		VectorXb valid_v = VectorXb::Constant(nf, false);
+		VectorXb valid_v = VectorXb::Constant(nv, false);
 		for (int i = 0; i < nf; ++i)
 		{
 			if (valid_f[i])
