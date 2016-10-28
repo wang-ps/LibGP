@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
 		LibGP::VectorXb valid_f = LibGP::VectorXb::Constant(nf, true);
 		for (int j = 0; j < nf; ++j)
 		{
-			if (f_area[j] < 1.0e-20)
+			if (f_area[j] < 1.0e-15)
 			{
 				valid_f[j] = false;
 				k++;
