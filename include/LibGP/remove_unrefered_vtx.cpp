@@ -4,11 +4,9 @@
 
 namespace LibGP
 {
-	LIBGP_INLINE int remove_unrefered_vtx(std::string filename)
+	LIBGP_INLINE int remove_unrefered_vtx(
+		MatrixXf& V, MatrixXi& F)
 	{
-		MatrixXf V; MatrixXi F;
-		read_mesh(filename, V, F);
-
 		int nf = F.cols();
 		int nv = V.cols();
 
@@ -48,7 +46,6 @@ namespace LibGP
 			}
 			V.conservativeResize(3, nv1);
 		}
-		write_mesh(filename, V, F);
 		return n;
 	}
 }

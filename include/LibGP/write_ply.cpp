@@ -7,7 +7,7 @@ namespace LibGP{
 		const std::vector<std::string> comments, const MatrixXu8 &C)
 	{
 		//  create ply 
-		p_ply ply = ply_create(filename.c_str(), PLY_ASCII, nullptr, 0, nullptr);
+		p_ply ply = ply_create(filename.c_str(), PLY_LITTLE_ENDIAN, nullptr, 0, nullptr);
 		if (!ply) throw std::runtime_error("Unable to write PLY file!");
 
 		// add comments

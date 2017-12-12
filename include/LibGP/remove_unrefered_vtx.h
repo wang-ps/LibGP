@@ -3,7 +3,7 @@
 
 namespace LibGP{
 	LIBGP_INLINE int remove_unrefered_vtx(
-		std::string filename );
+		MatrixXf& V, MatrixXi& F);
 }
 
 #ifndef LIBPG_STATIC_LIBRARY

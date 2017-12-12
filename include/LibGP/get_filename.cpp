@@ -60,7 +60,7 @@ LIBGP_INLINE bool LibGP::get_filename(std::string& filename,
 
 	case LibGP::COLOR_FILE:
 		ofn.lpstrDefExt = TEXT("color");
-		ofn.lpstrFilter = TEXT("Color Files(*.color; *.txt;)\0 *.color;*.txt\0");
+		ofn.lpstrFilter = TEXT("Color Files(*.color; *.txt; *.seg;)\0 *.color;*.txt;*.seg\0");
 		break;
 
 	default:

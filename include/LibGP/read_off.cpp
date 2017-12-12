@@ -7,7 +7,7 @@ namespace LibGP
 		std::ifstream infile(filename, std::ios::binary);
 		if (!infile)
 		{
-			std::cout << "Open OFF file error!" << std::endl;
+			std::cout << "Open " + filename + " error!" << std::endl;
 			return false;
 		}
 
@@ -16,7 +16,7 @@ namespace LibGP
 		infile >> head;
 		if (!(head == "OFF"))
 		{
-			std::cout << "It is not an OFF file!" << std::endl;
+			std::cout << filename + " is not an OFF file!" << std::endl;
 			return false;
 		}
 

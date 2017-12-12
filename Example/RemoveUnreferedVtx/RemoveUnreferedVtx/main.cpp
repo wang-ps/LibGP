@@ -23,11 +23,19 @@ int main(int argc, char* argv[])
 	#pragma omp parallel for
 	for (int i = 0; i < filenames.size(); i++)
 	{
-		int n = LibGP::remove_unrefered_vtx(filenames[i]);
+		LibGP::MatrixXf V;
+		LibGP::MatrixXi F;
+		LibGP::read_mesh(filenames[i], V, F);
+
+		int n = LibGP::remove_unrefered_vtx(V, F);
+
+		if (n > 0)
+		{
+			LibGP::write_mesh(filenames[i], V, F);
+		}
 
 		string msg = filenames[i].substr(filenames[i].rfind('\\') + 1) +
 			": remove " + to_string(n) + " unreferenced vertices.\n";
-
 		cout << msg;
 	}
 

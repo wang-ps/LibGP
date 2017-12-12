@@ -1,10 +1,12 @@
 #include <iostream>
 #include <LibGP\LibGP.h>
+#include <Eigen\dense>
 #include <LibGP\ICP.h>
 using namespace std;
 
 int main (int argc, char const ** argv)
 {   
+	Eigen::MatrixXd::Index i;
     typedef double Scalar;
     typedef Eigen::Matrix<Scalar, 3, Eigen::Dynamic> Vertices;
     std::string file_source;
