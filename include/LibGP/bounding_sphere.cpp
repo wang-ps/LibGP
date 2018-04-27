@@ -1,6 +1,6 @@
 #include "bounding_sphere.h"
-#include <Miniball.hpp>
 
+#include <Miniball.hpp>
 
 namespace LibGP
 {
