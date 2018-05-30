@@ -55,3 +55,6 @@
 
 // mesh deformation
 #include "PoissonDeformation.h"
+
+// mesh sampling
+#include "sample_points.h"
