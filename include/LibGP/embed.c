@@ -25,16 +25,16 @@
 #include <stdlib.h>
 
 static const char *code =
-  "const char *find_embedded_file(const char *name, size_t *size) {\n"
-  "  const struct embedded_file *p;\n"
-  "  for (p = embedded_files; p->name != NULL; p++) {\n"
-  "    if (!strcmp(p->name, name)) {\n"
-  "      if (size != NULL) { *size = p->size; }\n"
-  "      return (const char *) p->data;\n"
-  "    }\n"
-  "  }\n"
-  "  return NULL;\n"
-  "}\n";
+    "const char *find_embedded_file(const char *name, size_t *size) {\n"
+    "  const struct embedded_file *p;\n"
+    "  for (p = embedded_files; p->name != NULL; p++) {\n"
+    "    if (!strcmp(p->name, name)) {\n"
+    "      if (size != NULL) { *size = p->size; }\n"
+    "      return (const char *) p->data;\n"
+    "    }\n"
+    "  }\n"
+    "  return NULL;\n"
+    "}\n";
 
 int main(int argc, char *argv[]) {
   FILE *fp;

@@ -3,19 +3,19 @@
 #include "list_to_adj.h"
 #include "adj_to_list.h"
 
-namespace LibGP
-{
-	LIBGP_INLINE void compute_face_ringv(
-		vecveci& vec, const MatrixXi& F)
-	{
-		vecveci vf;
-		compute_vtx_face_ring(vf, F);
+namespace LibGP {
 
-		SMatrixf A;
-		list_to_adj(A, vf);
+LIBGP_INLINE void compute_face_ringv(
+    vecveci& vec, const MatrixXi& F) {
+  vecveci vf;
+  compute_vtx_face_ring(vf, F);
 
-		SMatrixf B = SMatrixf(A.transpose()) * A;
+  SMatrixf A;
+  list_to_adj(A, vf);
 
-		adj_to_list(vec, B);
-	}
+  SMatrixf B = SMatrixf(A.transpose()) * A;
+
+  adj_to_list(vec, B);
 }
+
+}  // namespace LibGP

@@ -1,35 +1,31 @@
 #include "compute_avg_edge_length.h"
 
-namespace LibGP
-{
-	template <typename DerivedV, typename DerivedF>
-	LIBGP_INLINE Float LibGP::compute_avg_edge_length(
-		const Eigen::MatrixBase<DerivedV>& V,
-		const Eigen::MatrixBase<DerivedF>& F)
-	{
-		Float avg_len = 0;
-		#pragma omp parallel for reduction(+:avg_len)
-		for (int j = 0; j < F.cols(); j++)
-		{
-			Float d = 0;
-			for (int i = 0; i < F.rows(); i++)
-			{
-				d += (V.col(F(i, j)) - V.col(F((i + 1) % F.rows(), j))).norm();
-			}
-			avg_len += d;
-		}
+namespace LibGP {
 
-		return avg_len / (Float)(3 * F.cols());
-	}
+template <typename DerivedV, typename DerivedF>
+LIBGP_INLINE Float compute_avg_edge_length(
+    const Eigen::MatrixBase<DerivedV>& V,
+    const Eigen::MatrixBase<DerivedF>& F) {
+  Float avg_len = 0;
+  #pragma omp parallel for reduction(+:avg_len)
+  for (int j = 0; j < F.cols(); j++) {
+    Float d = 0;
+    for (int i = 0; i < F.rows(); i++) {
+      d += (V.col(F(i, j)) - V.col(F((i + 1) % F.rows(), j))).norm();
+    }
+    avg_len += d;
+  }
+  return avg_len / (Float)(3 * F.cols());
+}
 
 #ifdef LIBPG_STATIC_LIBRARY
 // Explicit template specialization
-template<> 
+template<>
 Float compute_avg_edge_length<MatrixXf, MatrixXi>(
-	const Eigen::MatrixBase<MatrixXf>&,
-	const Eigen::MatrixBase<MatrixXi>&);
+    const Eigen::MatrixBase<MatrixXf>&,
+    const Eigen::MatrixBase<MatrixXi>&);
 #endif
 
-}
+}  // namespace LibGP
 
 

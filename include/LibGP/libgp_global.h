@@ -37,7 +37,8 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
-namespace LibGP{
+namespace LibGP {
+
 #define  SINGLE_PRECISION
 
 /* Application precision -- can be set to single or Float precision */
@@ -70,5 +71,5 @@ typedef Eigen::Matrix<Float, Eigen::Dynamic, Eigen::Dynamic>	MatrixXf;
 typedef Eigen::Matrix<UINT8, Eigen::Dynamic, Eigen::Dynamic>	MatrixXu8;
 typedef Eigen::SparseMatrix<Float>								SMatrixf;
 typedef Eigen::Triplet<Float>									Tripletf;
- 
-}
+
+}  // namespace LibGP
