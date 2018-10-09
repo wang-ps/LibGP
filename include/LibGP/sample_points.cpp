@@ -12,6 +12,7 @@ LIBGP_INLINE void sample_points(
   VectorXf areas;
   compute_face_normal(face_normal, areas, V, F);
   compute_face_center(face_center, V, F);
+  area_unit *= areas.mean();
 
   std::default_random_engine generator;
   std::uniform_real_distribution<Float> distribution(0.01, 0.99);
