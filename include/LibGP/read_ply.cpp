@@ -17,19 +17,19 @@ LIBGP_INLINE bool LibGP::read_ply(std::string filename, MatrixXf& V, MatrixXi& F
     std::cout << "Open PLY header error!" << std::endl;
     return false;
   }
-
+  
   // get vertex number and face number
   p_ply_element element = nullptr;
-  UINT32 nv = 0, nf = 0;
+  uint32_t nv = 0, nf = 0;
   while ((element = ply_get_next_element(ply, element)) != nullptr) {
     const char *name;
     long nInstances;
 
     ply_get_element_info(element, &name, &nInstances);
     if (!strcmp(name, "vertex"))
-      nv = (UINT32)nInstances;
+      nv = (uint32_t)nInstances;
     else if (!strcmp(name, "face"))
-      nf = (UINT32)nInstances;
+      nf = (uint32_t)nInstances;
   }
 
   // init F&V

@@ -5,7 +5,7 @@
 
 namespace LibGP {
 
-LIBGP_INLINE void delete_pieces(MatrixXf& V, MatrixXi& F, int min_num) {
+void delete_pieces(MatrixXf& V, MatrixXi& F, int min_num) {
   vecveci fring;
   compute_face_ring(fring, F);
 
@@ -52,18 +52,21 @@ LIBGP_INLINE void delete_pieces(MatrixXf& V, MatrixXi& F, int min_num) {
     }
   }
 
-  /* mark unvalid faces */
-  std::vector<int> unvalid_piece_id;
+  /* mark invalid faces */
+  vector<int> invalid_piece_id;
+  if (min_num < 0) {
+    min_num = *std::max_element(piece_num.begin(), piece_num.end());
+  }
   for (int i = 0; i < piece_num.size(); i++) {
     if (piece_num[i] < min_num) {
-      unvalid_piece_id.push_back(i);
+      invalid_piece_id.push_back(i);
     }
   }
 
   VectorXb valid_f = VectorXb::Constant(nf, false);
   for (int i = 0; i < nf; i++) {
     bool flag = true;
-    for (auto& id : unvalid_piece_id) {
+    for (auto& id : invalid_piece_id) {
       if (piece_id[i] == id) {
         flag = false;
         break;
