@@ -1,25 +1,32 @@
 #include "get_all_filenames.h"
 
-LIBGP_INLINE void LibGP::get_all_filenames(std::vector<std::string>& _all_filenames, std::string _filename) {
-  // reset data
-  _all_filenames.clear();
+#include <algorithm>
+#include <io.h>
 
-  // find
-  size_t p0 = _filename.rfind('\\') + 1;
-  size_t p1 = _filename.rfind('.');
+namespace LibGP {
 
-  // file path
-  std::string file_path(_filename, 0, p0);
+string extract_path(string str) {
+  std::replace(str.begin(), str.end(), '\\', '/');
+  size_t pos = str.rfind('/');
+  if (string::npos == pos) {
+    return string(".");
+  } else {
+    return str.substr(0, pos);
+  }
+}
 
-  // get the regular expression
-  _filename.replace(p0, p1 - p0, "*");
+void get_all_filenames(vector<string>& all_filenames, string filename_in) {
+  all_filenames.clear();
+  string file_path = extract_path(filename_in) + "/";
+  string filename = file_path + "*" + filename_in.substr(filename_in.rfind('.'));
 
-  // find all the file
   _finddata_t c_file;
-  intptr_t hFile = _findfirst(_filename.c_str(), &c_file);
+  intptr_t hFile = _findfirst(filename.c_str(), &c_file);
   do {
     if (hFile == -1) break;
-    _all_filenames.push_back(file_path + std::string(c_file.name));
+    all_filenames.push_back(file_path + string(c_file.name));
   } while (_findnext(hFile, &c_file) == 0);
   _findclose(hFile);
 }
+
+}  // namespace LibGP

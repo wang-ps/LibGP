@@ -1,9 +1,12 @@
 #pragma once
-#include "libgp_global.h"
+#include <vector>
+#include <string>
 
 namespace LibGP {
+using std::vector;
+using std::string;
 
-LIBGP_INLINE void get_all_filenames(std::vector<std::string>& _all_filenames, std::string _filename);
+void get_all_filenames(vector<string>& all_filenames, string filename_in);
 
 }  // namespace LibGP
 
