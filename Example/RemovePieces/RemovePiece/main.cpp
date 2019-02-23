@@ -38,8 +38,8 @@ int main(int argc, char* argv[]) {
 
     string filename = LibGP::extract_filename(filenames[i]);
     if (FLAGS_verbose) cout << "Processing : " + filename + "\n";
-    filename = output_path + filename;
-    LibGP::write_mesh(filenames[i], V, F);
+    filename = output_path + filename + ".obj";
+    LibGP::write_mesh(filename, V, F);
   }
 
   return 0;
