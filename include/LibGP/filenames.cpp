@@ -10,6 +10,7 @@ namespace LibGP {
 #if defined _MSC_VER
 #include <direct.h>
 
+inline
 void mkdir(const string& dir) {
   _mkdir(dir.c_str());
 }
@@ -24,7 +25,7 @@ void mkdir(const string& dir) {
 }
 #endif
 
-
+inline
 string extract_path(string str) {
   std::replace(str.begin(), str.end(), '\\', '/');
   size_t pos = str.rfind('/');
@@ -35,6 +36,7 @@ string extract_path(string str) {
   }
 }
 
+inline
 string extract_filename(string str) {
   std::replace(str.begin(), str.end(), '\\', '/');
   size_t pos = str.rfind('/') + 1;
@@ -47,6 +49,7 @@ string extract_filename(string str) {
 #ifdef USE_WINDOWS_IO
 #include <io.h>
 
+inline
 void get_all_filenames(vector<string>& all_filenames, const string& filename_in) {
   all_filenames.clear();
   string file_path = extract_path(filename_in) + "/";
@@ -63,6 +66,7 @@ void get_all_filenames(vector<string>& all_filenames, const string& filename_in)
 
 #else
 
+inline
 void get_all_filenames(vector<string>& all_filenames, const string& data_list) {
   all_filenames.clear();
 

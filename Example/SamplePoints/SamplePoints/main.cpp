@@ -4,10 +4,11 @@
 #include <Eigen/dense>
 #include <LibGP/read_mesh.h>
 #include <LibGP/sample_points.h>
-#include <LibGP/get_all_filenames.h>
+#include <LibGP/filenames.h>
 using namespace std;
 
-bool write_points(const string filename, const Eigen::MatrixXf& pts, const Eigen::MatrixXf& normals) {
+bool write_points(const string filename, const Eigen::MatrixXf& pts,
+    const Eigen::MatrixXf& normals) {
   ofstream outfile(filename, ofstream::binary);
   if (!outfile) {
     cout << "Opening file failed" << filename << endl;
@@ -41,7 +42,7 @@ int main(int argc, char* argv[]) {
     unsigned p1 = filename.rfind('\\');
     unsigned p2 = filename.rfind('.');
 
-    Eigen::MatrixXf V; Eigen::MatrixXi F;
+    LibGP::MatrixXf V; LibGP::MatrixXi F;
     LibGP::read_mesh(filename, V, F);
 
     Eigen::MatrixXf pts, normals;
