@@ -14,7 +14,7 @@ DEFINE_bool(verbose, kOptional, true, "Output logs");
 int main(int argc, char* argv[]) {
   bool succ = cflags::ParseCmd(argc, argv);
   if (!succ) {
-    cflags::PrintHelpInfo("\nUsage: octree2mesh.exe");
+    cflags::PrintHelpInfo("\nUsage: ScaleMesh.exe");
     return 0;
   }
 
