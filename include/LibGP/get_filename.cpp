@@ -73,6 +73,7 @@ LIBGP_INLINE bool LibGP::get_filename(std::string& filename,
     file_name[pos] = 0;
 
     filename.assign(file_name);
+    std::replace(filename.begin(), filename.end(), '\\', '/');
     return true;
   }
   return false;

@@ -2,8 +2,6 @@
 
 #include <algorithm>
 #include <io.h>
-#define USE_WINDOWS_IO
-
 
 namespace LibGP {
 
