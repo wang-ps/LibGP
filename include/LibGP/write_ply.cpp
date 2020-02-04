@@ -1,4 +1,6 @@
 #include "write_ply.h"
+
+#ifdef USE_RPLY
 #include <rply.h>
 
 namespace LibGP {
@@ -72,5 +74,28 @@ LIBGP_INLINE void write_ply(const std::string &filename,
   // close ply
   ply_close(ply);
 }
+}  // namespace LibGP
+
+#else
+
+#include <happly.h>
+
+namespace LibGP {
+
+LIBGP_INLINE void write_ply(const std::string &filename,
+    const MatrixXf &V, const MatrixXi &F, const MatrixXf &UV,
+    const std::vector<std::string> comments, const MatrixXu8 &C) {
+
+  std::vector<float> vtx(V.data(), V.data() + V.cols() * V.rows());
+  std::vector<int> faces(F.data(), F.data() + F.cols() * F.rows());
+
+  happly::PLYData plyOut;
+  plyOut.addVertices(vtx);
+  plyOut.addTriFaces(faces);
+
+  plyOut.write(filename);
+}
 
 }  // namespace LibGP
+
+#endif

@@ -1,4 +1,7 @@
 #include "read_ply.h"
+
+#ifdef USE_RPLY
+
 #include <rply.h>
 
 namespace LibGP {
@@ -75,3 +78,36 @@ LIBGP_INLINE bool LibGP::read_ply(std::string filename, MatrixXf& V, MatrixXi& F
 }
 
 }  // namespace LibGP
+
+#else
+
+#include <happly.h>
+
+namespace LibGP {
+
+LIBGP_INLINE bool read_ply(std::string filename, MatrixXf& V, MatrixXi& F) {
+  std::ifstream infile(filename, std::ios::binary);
+  if (!infile) {
+   std::cerr << "Error, cannot read ply files!" << std::endl;
+   return false;
+  }
+
+  happly::PLYData plyIn(infile);
+  std::vector<float> vtx = plyIn.getVertices();
+  std::vector<int> faces = plyIn.getTriFaces();
+
+  int nv = vtx.size() / 3;
+  int nf = faces.size() / 3;
+
+  V.resize(3, nv);
+  F.resize(3, nf);
+
+  std::copy(vtx.begin(), vtx.end(), V.data());
+  std::copy(faces.begin(), faces.end(), F.data());
+
+  return true;
+}
+
+}  // namespace LibGP
+
+#endif
