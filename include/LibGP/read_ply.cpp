@@ -2,7 +2,7 @@
 
 #ifdef USE_RPLY
 
-#include <rply.h>
+#include <rply/rply.h>
 
 namespace LibGP {
 

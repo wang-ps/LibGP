@@ -1,7 +1,7 @@
 #include "write_ply.h"
 
 #ifdef USE_RPLY
-#include <rply.h>
+#include <rply/rply.h>
 
 namespace LibGP {
 
